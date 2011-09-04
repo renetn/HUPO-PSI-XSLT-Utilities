@@ -1,0 +1,66 @@
+
+\chapter{Outil de transformation de fichier DIP en fichier PSI canonique}
+
+\section{Présentation}
+
+Le format PSI est un format XML particulier destiné à standardiser les
+formats XML de stockage de données. Il est important de pouvoir
+importer des données déjà existantes. DIP, Database of Interacting
+Proteins, regroupe une importante quantité d'informations. Ce format
+est utilisé par de nombreux laboratoires désireux de travailler avec
+PSI aujourd'hui. L'outil {\it DIP\_TO\_MIFn}  permet de transformer les bases de données
+existante de DIP au format PSI.\\
+
+Nous décrirons en particulier les fonctionnalités de cet outil ainsi que les
+méthodes permettant de l'installer et de l'utiliser.
+
+\section{Fonctionnalités}
+
+\subsection{Rôle de l'outil}
+
+L'outil de transformation DIP vers PSI récupère l'ensemble des
+informations présentes dans une base de données DIP au format XML
+défini dans le fichier {\it xin.xsd} et l'assemble au format PSI. Le format
+XIN étant assez libre, on ne traite que certaines informations
+spécifiques aux fichiers actuellement disponibles en
+téléchargement. Afin de vérifier que les données indispensables sont
+traitées, on a défini un autre outil {\it DIP\_TO\_MIFn\_report.xsl}
+affichant en fichier HTML les données non traitées et non écrites dans
+le fichier au format PSI.
+
+\newpage
+
+Ainsi, la fonctionnalité de notre outil est de générer, à partir d'un
+fichier au format XIN, un fichier au format PSI et de vérifier
+qu'aucune information n'a été perdue.
+
+\subsection{Description du fichier DIP d'entrée}
+
+Le fichier importé de la base de donnée DIP est un fichier XML
+vérifiant le schéma {\it xin.xsd}. 
+
+
+\subsection{Description du fichier PSI obtenu}
+
+Le fichier obtenu est un fichier PSI au format PSI canonique.
+
+\section{Usage}
+
+Pour transformer un fichier DIP au format PSI :
+\begin{center}
+\verb+  xsltproc -o fichier_PSI.xml DIP_TO_MIFn.xsl fichier_DIP.xml+
+\end{center}
+~ \\
+Pour générer le rapport d'erreur sur la transformation :
+\begin{center}
+\verb+ xsltproc -o rapport.html DIP_TO_MIFn_report.xsl fichier_DIP.xml+ 
+\end{center}
+
+
+\section{Dépannage}
+
+L'outil présenté ici a été conçu et validé avec la version 1.12 de la XSD de PSI. Dès lors, nous ne pouvons en aucun cas guarantir le bon fonctionnement de cet outil en cas de modification de cette XSD. Pour modifier l'outil dans ce cas, se reporter au manuel de maintenance. 
+
+
+
+

@@ -1,0 +1,22 @@
+\chapter{Installation et procédure d'utilisation}
+
+\section{Procédure d'utilisation}
+Le format PSI est un format XML particulier. Par ailleurs, les outils présentés ici sont des feuilles de style au format XSLT. Par conséquent, pour utiliser cet outil, il nous faut appliquer la feuille de style au fichier PSI.\\
+
+Pour cela, il faut faire appel à un processeur XSLT. Il s'agit en fait d'un programme permettant d'appliquer une feuille XSLT à un fichier XML. Il existe de nombreux processeurs réalisant cette transformation dont la syntaxe d'utilisation varie d'un processeur à l'autre. Nous allons ici présenter celui que nous avons utilisé lors de la réalisation de nos outils. Les moyens disponibles pour obtenir ce processeur et pour l'installer sont décrits un peu plus loin dans la section {\it Installation}.\\
+
+En ce qui concerne \texttt{xsltproc}, pour appliquer notre outil (nommé ici {\it outil.xsl}) à un fichier PSI (nommé ici {\it fichier\_PSI.xml}) et pour stocker le résultat dans un fichier nommé {\it resultat}, il suffit de taper la ligne de commande suivante :
+
+\begin{center}
+\verb+ xsltproc -o resultat outil.xsl fichier_PSI.xml+
+\end{center} 
+
+Le fichier {\it resultat} a un format qui va varier d'un outil à l'autre. Nous invitons donc l'utilisateur à se reporter à la section {\it Usage} de chaque outil pour connaitre le format exact du fichier en sortie ainsi que les noms précis des feuilles de style à appliquer (nommées ici {\it outil.xsl}).
+\newpage
+\section{Installation}
+Comme nous l'avons expliqué dans la section précédente, le seul logiciel nécessaire pour appliquer notre outil à un fichier PSI est un processeur XSL. Par exemple, vous pouvez trouver une version téléchargeable du processeur \texttt{xsltproc} à l'adresse internet suivante :
+\begin{center}
+\underline{www.xmlsoft.org}
+\end{center} 
+
+Le processeur se trouve en fait dans la librairie \texttt{libxml} disponible sur le site de xmlsoft. Il suffit donc d'installer cette librairie pour avoir accès au processeur \texttt{xsltproc}.

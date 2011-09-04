@@ -1,0 +1,59 @@
+\chapter{Outil de transformation de fichier PSI canonique  en fichier CSV}
+
+\section{Présentation}
+
+Le format PSI est un format XML particulier destiné à standardiser les formats XML de stockage de données tels que DIP par exemple. Ceci étant pris en compte, pour faciliter la consultation des données des fichiers au format PSI, il peut être intéressant de transformer ces fichiers en des fichiers avec un format aisément lisible par tout utilisateur du format PSI. Le format ``Coma Separated Value'' (CSV) semble remplir pleinement ce rôle puisqu'il est lisible par n'importe quel logiciel de tableur.\\
+
+Dès lors, nous allons présenter ici un outil permettant la transformation d'un fichier au format PSI en un fichier au format CSV. Nous décrirons en particulier ses fonctionnalités ainsi que les méthodes permettant de l'utiliser.
+
+\section{Fonctionnalités}
+
+
+\subsection{Rôle de l'outil}
+
+Coma Separated Value est un format très simple de stockage de données qui est lisible directement par un logiciel de tableur (Microsoft Excel, StarOffice...). De ce fait, n'importe quel laboratoire peut utiliser ce format. C'est pourquoi, pour exploiter des fichiers au format PSI, il peut être plus aisé de les transformer au préalable au format CSV.
+\newpage
+Ainsi, la fonctionnalité de notre outil est de générer, à partir d'un fichier au format PSI, un fichier au format CSV dans lequel les données sont mises en forme (Cf. section suivante) afin d'être plus facilement lisibles et exploitables.
+
+\subsection{Description du fichier CSV obtenu}
+
+\subsubsection{Le format CSV}
+
+Le fichier résultat de l'application de notre outil au fichier XML est un fichier de type Coma Separated Value (CSV). Ce format décrit une structure de tableur, c'est à dire qu'il s'agit d'un fichier texte dans lequel les données sont alignées en colonne. Le saut d'une colonne à une autre est représenté par le caractère ``point-virgule'' et le retour à la ligne est représenté par le caractère ``retour chariot''. Le fichier résultat fournit en fait cinq sous-tableaux les uns en dessous des autres.
+
+\subsubsection{La structure du fichier résultat}
+
+Le fichier résultat récapitule les données du fichier PSI sous forme de cinq tableaux :\\
+
+\begin{itemize}
+\item[$\bullet$] Un tableau intitulé {\bf [\_Availability List\_]} qui liste les licences et droits relatifs aux données contenues dans les fichiers.\\
+
+\item[$\bullet$] Un tableau intitulé {\bf [\_Experiment List\_]} qui liste les exp\'eriences et leurs caract\'eristiques. Les premiers champs {\it ID, shortlabel} et {\it fullname} permettent une identification rapide de chaque exp\'erience.\\
+
+\item[$\bullet$] Un tableau intitulé {\bf [\_Interactor List\_]} qui liste les interacteurs et leurs particularités. Les premiers champs {\it ID, shortlabel} et {\it fullname} permettent une identification rapide de chaque int\'eracteur.\\
+
+\item[$\bullet$] Un tableau intitulé {\bf [\_Interaction List\_]} qui liste les interactions et leurs propriétés. Il est constitué d'une ligne par participant. Le premier champ, {\it Participant InteractorRef}, indique l'identifiant de chaque participant par interaction et le second, {\it interaction\_number}, l'ID de l'interaction.\\
+
+\item[$\bullet$] Un tableau intitulé {\bf [\_Feature List\_]} qui liste les descriptions des dispositifs d'exp\'erimentation. Le premier champ, {\it interaction\_number}, indique l'ID de l'interaction correspondant à ces descriptions et le second, {\it Participant InteractorRef}, traduit le fait qu'un \texttt{feature} s'applique à un participant particulier.  
+\end{itemize}
+
+\begin{figure}%[htbp]
+\begin{center}
+\includegraphics[scale=0.5]{tableaux_csv.eps}
+\caption{Structure du fichier CSV obtenu}
+\end{center}
+\end{figure}
+\newpage
+
+\section{Usage}
+Conformément au chapitre {\it Procédure d'utilisation} de ce rapport, voici la ligne de commande à taper pour pouvoir utiliser cet outil avec le processeur \texttt{xsltproc} :
+\begin{center}
+\verb+xsltproc -o resultat.csv MIFn_to_CSVn.xsl fichier_PSI.xml+
+\end{center}
+
+Le fichier {\it resultat} obtenu est un fichier CSV au format .txt. Le fichier ici nommé {\it fichier\_PSI.xml} correspond au fichier PSI que vous désirez transformer.
+
+\section{Dépannage}
+
+L'outil présenté ici a été conçu et validé avec la version 1.12 de la XSD de PSI. Dès lors, nous ne pouvons en aucun cas guarantir le bon fonctionnement de cet outil en cas de modification de cette XSD. Pour modifier l'outil dans ce cas, se reporter au manuel de maintenance. 
+

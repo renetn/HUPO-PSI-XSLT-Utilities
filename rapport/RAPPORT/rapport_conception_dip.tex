@@ -1,0 +1,69 @@
+\section{Transformation DIP vers PSI}
+
+Pour construire le fichier résultat PSI au format canonique,
+ on construit l'arbre résultat et on appelle les templates 
+pour sélectionnner les informations du fichier source.
+
+\subsection{Feuille de style de transformation}
+
+On présente ici les différentes templates de la transformation
+\texttt{DIP\_TO\_MIFn}.\\ La première règle matche la racine. Elle traite la
+balise \textit{project} et crée les balises \textit{entrySet} et
+\textit{entry}. Elle crée les attributs de \textit{entrySet} :
+\textit{level} initialisé à 1 et \textit{version} initialisé à 12
+puisque le fichier résultat vérifie la version 1.12 du schéma
+\texttt{MIF.xsd}. Elle appelle les autres templates sur le reste du
+fichier DIP.
+
+\subsubsection{Template project}
+
+La seconde règle matche la balise \textit{project}.Cette règle gère
+les attributs de la balise \textit{project} et génère la
+\textit{source} dans le fichier PSI. Elle appelle d'autres règles sur
+les attributs \textit{ver}, \textit{author}, \textit{source} et
+\textit{date} afin de les recopier dans la \textit{source} du fichier
+destination. Cela permet de ne créer des balises \textit{attribute}
+que lorsque c'est nécessaire. \\ Ensuite cette règle crée les balises
+\textit{interactorList} et \textit{interactionList} puis appelle les
+règles sur les \textit{node} et les \textit{edge}.
+
+\subsubsection{Template node}
+
+Cette règle ne matche que les \textit{node} dont l'attribut
+\textit{class} vaut \textit{protein}. Elle génère l'identifiant de la
+protéine pour le fichier PSI, crée la balise \textit{names} et y
+recopie les \textit{shn} et \textit{descr} si ils existent. Elle
+s'occupe des \textit{feature} grâce à une autre template et les recopie dans les \textit{xref} de
+la protéine dans le fichier PSI. Ensuite elle crée un élément organism
+pour la protéine dans le fichier PSI si les attributs \textit{taxon}
+et \textit{organism} sont présents dans le fichier DIP.
+
+\subsubsection{Template feature}
+
+Cette règle matche les balises \textit{feature} dont l'attribut
+\textit{class} vaut \textit{cref}. Ces balises correspondent à des
+\textit{secondaryRef} dans le fichier PSI.
+
+\subsubsection{Template edge}
+
+Cette règle ne matche que les \textit{edge} dont l'attribut
+\textit{class} vaut\textit{link}. Ces balises correspondent à des
+interactions. Elle crée un élément \textit{names} lorsque c'est
+possible. Ensuite elle crée la balise \textit{participantList} et crée
+les deux \textit{interactorRef} des \textit{proteinParticipant}
+correspondant aux références des attributs \textit{from} et
+\textit{to} de la balise \textit{edge}. Étant donné que l'on n'a
+aucune information sur les expériences, on préfère ne pas créer
+d'\textit{experimentLists}, plutôt que d'inventer une
+\textit{interactionDetection} vide, ce qui malheureusement ne vérifie
+pas le schéma défini dans le fichier \texttt{MIF.xsd}.
+
+\subsection{Feuille de style de validation }
+
+Cette feuille de style \textit{DIP\_TO\_MIFn\_report} matche toutes les
+balises qui n'ont pas été traitées par la transformation
+\textit{DIP\_TO\_MIFn} et les écrit de façon structurée dans un rapport au
+format HTML. Ainsi toute information est traitée soit par la
+transformation \textit{DIP\_TO\_MIFn} soit par la validation
+\textit{DIP\_TO\_MIFn\_report}. La feuille de style de validation utilise un
+parcours semblable à celui de la transformation décrit précédemment.

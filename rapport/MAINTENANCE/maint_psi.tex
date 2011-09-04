@@ -1,0 +1,131 @@
+\chapter{Norme PSI ({\bf P}roteomics {\bf S}tandards {\bf I}nitiative)}
+
+PSI est un groupe internationnal qui travaille sur les échanges de données d'interaction protéine-protéine. Ce groupe à définit un format de fichier XML quie est celui utilisé par nos outils. Les données d'interaction sont manipulées différents organismes de taille variable. Certain de ces organismes possède des banques de données qui traitent un nombre important de données, d'autres possèdent des structures plus modeste.\\
+\\
+A l'heure actuelle, chacun de ces acteurs stocke ses données dans un format qui leur est propre, ceci explique donc la nécessité de cette norme et des outils des transformation associés.\\
+\\
+Nous allons donc définir cette norme. Une définiton précise des champs est fournie dans l'annexe 1. Nous essaierons ici de donner une vue plus générale du PSI.\\
+\\
+La norme PSI est définie par un schéma XML, appelé XSD ({\bf X}ML {\bf S}chéma {\bf D}éfinition). Ce schéma définit le format des fichiers XML contenant les données d'interaction. Il donne les éléments (balises) valides pour un fichier XML, le type de contenu et les attributs qui leur sont associés.\\
+\\
+Les concepteurs du format PSI ont défini de formes de fichiers PSI (PSI canonique et PSI deroulé).La première définit un fichier PSI sans redondance d'informations dit canonique. La deuxième définit un fichier PSI avec redondance d'informations dit déroulé.\\
+\\
+Plus précisément, un fichier PSI présente les interactions concernant un ensemble de proteines. Pour cela, il doit contenir les informations concernant les expériences qui ont été effectuées sur ces protéines pour mettre en évidence les interactions, les différentes protéines y participant et les droits et licences qui leur sont associés. Ces éléments (protéines, expériences,droits et licences) sont mis en relation dans la définiton d'interactions (voir figure 2.1 et 2.2). \\
+\\
+Dans sa forme canonique, le fichier PSI défini en entête la liste des expériences réalisées, la liste des protéines interagissant, ainsi que la liste des droits et licences. Chaque interaction fait ensuite référence \'a un ou plusieurs élément de ces listes en utilisant son identificateur. Dans ce mode, à l'interieur d'une interaction il n'y a donc que des références vers ces objets (voir figure 2.1).\\
+\\
+Dans se forme déroulée, les listes d'entête sont vides et les interactions contiennent la description complète des experiences, des interacteurs, ainsi que des droits et licences. Il n'y a donc aucune référence dans les interactions. Ces informations sont donc dupliquées autant que nécéssaire (voir figure 2.2). Toutes les informations disponibles sont accessible au niveau de l'interaction.\\ 
+\\
+{\bf \underline{Remarque}}: Un fichier contenant un mélange de ces deux définitions sera valide en ce qui concerne le schéma (XSD) PSI mais entraînera des pertes lors de l'exécution des transformations. En effet, il devra être considéré à un instant donné comme faisant partie de l'un de ces formats. En effet, s'il est considéré canonique, toute description dans une interaction sera conservée. En revanche, s'il est considéré comme déroulé, tous les élements présents dans les listes d'en-tête seront ignorés.\\ 
+\\
+Nous présentons dans la suite les outils permettant de passer de l'un des formats à l'autre.
+\begin{figure}%[htbp]
+\begin{center}
+\includegraphics[scale=1]{psi_fold.eps}
+\caption{Structure simplifiée de PSI canonique}
+\includegraphics[scale=1]{psi_unfold.eps}
+\caption{Structure simplifiée de PSI déroulé}
+\end{center}
+\end{figure}
+
+%\begin{figure}[htbp]
+%\input{psi.pstex_t}
+%\caption{Structure simplifiée de PSI canonique}
+%\input{psiunfold.pstex_t}
+%\caption{Structure simplifiée de PSI déroulé}
+%\end{figure}
+
+
+\chapter{Outil de transformation de fichier PSI canonique en fichier PSI déroulé - MIF\_unfold.xsl}
+
+\section{Hypothèses de travail}
+Cet outil suppose que le fichier fourni en entrée est conforme à la xsd de PSI (schéma XML). Il suppose aussi qu'il est canonique, c'est à dire qu'il ne contient que des références d'éléments à l'interieur des interactions, et que toute référence d'un élément correspond à un élement en en-tête. Si l'utilisateur n'est pas certain que son fichier est canonique, il peut effectuer le test grâce à l'outil prévu à cet effet.   
+
+\section{Algorithme}
+Algorithme mis en oeuvre dans cette partie :
+\begin{itemize}
+\item[$\bullet$] Remplacer chaque référence dans les interactions par la description correspondante de la liste de définitions. En pratique, un élément {\em experimentRef} sera remplacé par un élément {\em experimentDescription}, {\em availabilityRef} par {\em availabilityDescription} et {\em interactorRef} par {\em proteinInteractor}. La correspondance se fait entre l'attribut {\em ref} des références et l'attribut {\em id} des descritions. 
+\item[$\bullet$] Vider les listes situées en en-tête. En fait on ne recopie pas dans le fichier de sortie le contenu des listes : {\it availabilityList, experimentList} et {\it interactorList}.
+\item[$\bullet$] Recopier tous les autres éléments et attributs à l'identique.
+\end{itemize}
+En résultat on obtient un fichier au format PSI déroulé.
+
+
+\section{Evolutions} 
+Les évolutions de la norme PSI (schéma XML) peuvent entrainer des modifications de cet outil. Les évolutions pouvant remettre en cause cet outil sont néanmoins limitées. Ceci est dû au fait de l'utilisation de règles de copie d'éléments. Les élément sensible pour cet outils sont {\it experimentDescription, experimentRef, experimentList, availabilityDescription, availabilityRef,availabilityList, proteinInteractor, interactorRef interactorList} et leurs attributs.
+
+
+\chapter{Outil de transformation de fichier PSI déroulé en fichier PSI canonique - MIF\_fold.xsl}
+
+\section{Hypothèses de travail}
+Cet outil suppose que le fichier fourni en entrée est conforme à la xsd de PSI (scéma XML). Il suppose aussi qu'il est déroulé, c'est à dire qu'il ne contient pas de références d'éléments à l'interieur des interactions, que les listes d'entête sont vide, et que les description d'éléments ayant le même identificateur ont le même contenu. Si l'utilisateur n'est pas certain que son fichier est déroulé, il peut effectuer le test gr\^ace à l'outil prévu à cet effet.
+
+\section{Algorithmes}
+Un algorithme général pour cet outil est le suivant:
+\begin{itemize}
+\item[$\bullet$] Remplacer toutes les descriptions au niveau des interactions par des références. Les élements {\em experimentDescription}, {\em availibilityDescription}, {\em proteinInteractor} sont remplacés respectivement par les références ({\it experimentRef, availabilityRef} et {\it interactorRef}). L'attribut {\em ref} de chaque référence correspond à l'attribut {\em id} de chaque descrition. 
+\item[$\bullet$] Remplir les listes de descriptions {\it availabilityList, experimentList} et {\it interactorList}. Pour chaque liste :
+\begin{itemize}
+\item on lit les descritions au niveau des interactions.
+\item on ajoute cette définition si elle n'est pas déjà dans la liste. Concrètement, seule la première définition (dans l'ordre du fichier) sera conservée.
+\item trier les descriptions par l'attribut {\em id}.
+\end{itemize}
+\item[$\bullet$] Recopier tous les autres éléments et attributs à l'identique.
+\end{itemize}
+En résultat on obtient un fichier au format PSI canonique.
+
+\section{Evolutions} 
+Les évolutions de la norme PSI (schéma XML) peuvent entraîner une modification de cet outil. Les évolutions pouvant remettre en cause cet outil sont néanmoins limitées. Ceci est dû au fait de l'utilisation de règles de copie d'éléments. Les élément sensible pour cet outils sont {\it experimentDescription, experimentRef, experimentList, availabilityDescription, availabilityRef,availabilityList, proteinInteractor, interactorRef interactorList} et leurs attributs.
+
+
+\chapter{Outil de test de fichier canonique - MIF\_normalisedFormTester.xsl}
+
+\section{Hypothèses de travail}
+Cet outil suppose que le fichier fourni en entrée est conforme à la xsd de PSI (schéma XML).
+
+\section{Algorithmes}
+Un algorithme général pour cet outil est le suivant:
+\begin{itemize}
+\item[$\bullet$] Vérifier si toutes les références sont valides. Une référence sera invalide si il ne correspond aucune description dont l'attribut {\em id} et égal à sont attribut {\em ref}. 
+\item[$\bullet$] Vérifier s'il n'y a pas de description d'éléments au niveau des interactions. On recherche la présence des champs ({\it experimentDescription, availabilityDescription, proteinInteractor} au niveau d'une interaction.
+\end{itemize}
+Le resultats est un rapport au format HTML qui décrit toutes les erreurs.
+
+\section{Evolutions} 
+Les évolutions de la norme PSI (schéma XML) sont les seules à pouvoir entra\^iner une modification de cet outil. Les évolutions pouvant remettre en cause cet outil sont néanmoins limitées et concerne principalement les élements {\it experimentDescription, experimentRef, experimentList, availabilityDescription, availabilityRef,availabilityList, proteinInteractor, interactorRef, interactorList} et leurs attributs.
+
+
+
+\chapter{Outil de test de fichier déroulé - MIF\_denormalisedFormTester.xsl}
+
+\section{Hypothèses de travail}
+Cet outil suppose que le fichier fourni en entrée est conforme à la xsd de PSI (schéma XML).
+
+\section{Algorithmes}
+Un algorithme général pour cet outil est le suivant:
+\begin{itemize}
+\item[$\bullet$] Vérifier s'il n'y a pas de références d'éléments au niveau des interactions. On recherche la présence des champs ({\it experimentRef, availabilityRef, InteractorRef}.
+\item[$\bullet$] Vérifier que les listes d'en-tête sont vides. On recherche la présence des champs ({\it experimentDescription, availabilityDescription, proteinInteractor} dans les listes  {\it availabilityList, experimentList} et {\it interactorList}.
+\item[$\bullet$] Vérifier que tous les éléments ayant un même identificateur ont le même contenu.
+\end{itemize}
+Le resultats est un rapport au format HTML qui décrit toutes les erreurs.
+
+\section{Evolutions}
+Les évolutions de la norme PSI (schéma XML) sont les seules à pouvoir entra\^iner une modification de cet outil. Les évolutions pouvant remettre en cause cet outil sont néanmoins limitées et concerne principalement les élements {\it experimentDescription, experimentRef, experimentList, availabilityDescription, availabilityRef,availabilityList, proteinInteractor, interactorRef, interactorList} et leurs attributs.
+
+\chapter{Outil de visualisation de fichier PSI - MIF\_view.xsl}
+
+\section{Hypothèses de travail}
+Cet outil suppose que le fichier fourni en entrée est conforme à la xsd de PSI (schéma XML). Il suppose aussi qu'il est canonique, c'est à dire qu'il ne contient que des références d'éléments à l'interieur des interactions, et que toute référence d'un élément correspond à un élement en en-tête. Si l'utilisateur n'est pas certain que son fichier est canonique, il peut effectuer le test grâce à l'outil prévu à cet effet.
+
+\section{Algorithmes}
+Un algorithme général pour cet outil est le suivant:
+\begin{itemize}
+\item[$\bullet$] On affiche d'abord les sources et les licences du fichiers.
+\item[$\bullet$] On construit un tableau dont chaque ligne est un participant à une interaction. Le tableau présente les données : {\em interactorRef/@ref} or {\em proteinInteractor/names/shortLabel}, {\em participant/role}, {\em participant/isTaggedProtein}, {\em participant/isOverexpressedProtein}, {\em interactionType}.
+\item[$\bullet$] Pour plus de lisibilité les lignes sont regroupées par interaction et on alterne la couleur d'affichage d'un partiant à chaque linge.
+\end{itemize}
+Le resultats est un fichier au format HTML qui présente les interactions de façon synthétique.
+
+\section{Evolutions}
+Les évolutions de la norme PSI (schéma XML) sont les seules à pouvoir entra\^iner une modification de cet outil. Les champs décrivant les interactions sont particulièrement sensibles, ainsi que les dercriptions des participant et les références associées.

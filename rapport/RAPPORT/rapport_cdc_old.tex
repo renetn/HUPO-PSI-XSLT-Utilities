@@ -1,0 +1,228 @@
+\chapter{Cahier des charges}
+
+\section{Contexte du Projet}
+Le goupe Proteomics Standards Initiative (PSI) d\'eveloppe, sous l'\'egide de la HUPO, des normes internationales pour l'\'echange et la publication de donn\'ees sur les prot\'eomes d'esp\`eces vivantes notamment l'Homme. Le goupe PSI organise ses activit\'es autour de deux th\`emes principaux : les donn\'ees de spectrom\'etrie de masse, et les donn\'ees exp\'erimentales d'interaction prot\'eine-prot\'eine. 
+
+Ces formats et les outils associ\'es vont permettre aux banques de donn\'ees existantes (BIND, DIP, IntAct...), aux constructeurs d'appareils et aux scientifiques (institutionnels et industriels) de partager et g\'erer les t\'era-octets de donn\'ees actuellement dispers\'ees dans les laboratoires et centres de recherche. 
+
+C'est dans ce contexte qu'intervient notre projet, dont les objectifs sont r\'esum\'es par le schema ci-dessous :
+
+
+\section{Objectifs G\'en\'eraux}
+
+Lors du dernier meeting du " Proteomics Standards Initiative " \`a l'Institut Europ\'een de Bio informatique (Hinxton, UK), il a \'et\'e d\'efini un format de fichier XML pour l'\'echange d'informations relatives aux exp\'eriences d'interaction entre prot\'eines, le format PSI, sur lequel nous allons nous baser pour cette \'etude. Ce format permet d'enregistrer les donn\'ees sous deux formes : PSI " Canonique " et PSI " D\'eroul\'e ". 
+
+Dans ce cadre, notre travail consistera \`a r\'ealiser des outils de conversion entres les diff\'erents formats de fichiers. 
+
+La premi\`ere conversion se fera entre les deux formes de format PSI, permettant de transformer un fichier au format PSI Canonique en PSI D\'eroul\'e et r\'eciproquement.
+
+On s'attachera \'egalement \`a la transformation de fichiers au format DIP (Database of Interacting Proteins : http://dip.doe-mbi.ucla.edu/) au format PSI " Canonique ", on envisagera ensuite la transformation identique pour le format BIND (Biomolecular Interaction Network Database : http://www.bind.ca). 
+
+Il appara\^it aussi n\'ecessaire de sp\'ecifier un nouveau format de fichier de type CSV (Comma Separated Value) exploitable au niveau de petites structures qui utilisent des outils de traitements de donn\'ees simples. Une fois ce format d\'efini, on impl\'ementera un outil de conversion permettant de passer du format PSI Canonique au format CSV qui aura \'et\'e d\'efini. 
+\section{Travail \`a r\'ealiser}
+
+\subsection{Conversion de fichiers entre les formats PSI Canonique et PSI D\'eroul\'e}
+Les applications réalisant ces objectifs sont r\'e\`element indispensables pour le client et ne sauraient ne pas \^etre livr\'ees. 
+\subsubsection{Besoins fonctionnels}
+On d\'eveloppera un outil r\'ealisant la conversion de fichiers entre les formats PSI Canonique et PSI D\'eroul\'e en 2 modules principaux : le premier r\'ealisant la conversion du format PSI Canonique vers le format PSI D\'eroul\'e et le second r\'ealisant la conversion r\'eciproque. 
+
+\subsubsection{Besoins non fonctionnels}
+Pour valider les transformations entre PSI Canonique et PSI D\'eroul\'e. Il sera possible dáppliquer de mani\`ere circulaire, une conversion, puis l'autre plusieurs fois de suite. Ce mode de test nous permettra de v\'erifier la stabilit\'e et la coh\'erence de nos transformations.
+
+
+\subsection{Conversion de fichiers entre les formats DIP ET PSI}
+Seule la transformation du format DIP vers le format PSI a \'et\'e envisag\'ee.
+\subsubsection{Besoins fonctionnels}
+Pour rapprocher ces deux formats, on r\'ealisera pr\'ealablement une \'etude des informations contenues dans ces fichiers \`a partir de leur DTD et sch\'ema XML. On impl\'ementera ensuite un outil r\'ealisant la conversion du format DIP vers le format PSI Canonique.
+
+\subsubsection{Besoins non fonctionnels}
+La transformation sera d\'eclar\'ee valide lorsque l'on aura montr\'e que donn\'ees stock\'ees dans le fichier de sortie sont les informations stock\'ees dans le ficher initial.
+
+\subsection{Cr\'eation d'un format de type CSV}
+\subsubsection{Besoins fonctionnels}
+Le format de fichier CSV n'\'etant pas d\'efini, on r\'ealisera dans un premier temps une \'etude de la structure qui sera utilis\'ee pour stocker les donn\'ees de façon efficace dans ce format. Ce format d\'ecrira uniquement des interactions binaires entre prot\'eines. Pour \'etablir cette nouvelle structure, on s'appuiera sur les informations contenues dans les fichiers issus de BIND et DIP dans ce type d'interaction. On donnera alors une d\'efinition pr\'ecise de la structure retenue. 
+
+\subsubsection{Besoins non fonctionnels}
+Le format CSV pr\'esentera l'information stock\'ee dans un tableau -format tableur-
+
+\subsection{Conversion de fichiers entre les formats PSI et CSV}
+Dans un premier tant seuls l'affichage gr\^ace au format CSV de fichiers de la base PSI sont envisag\'es. Selon l\'etat d'avancement et les d\'elais, la possibilit\'e de rentrer de nouveaux fichiers dans la base PSI gr\^ace \`a une saisie sur un fichier CSV pourra \^etre envisag\'ee.
+\subsubsection{Besoins fonctionnels}
+On d\'eveloppera un outil r\'ealisant la conversion du format PSI Canonique de type XML vers le format d\'efini pr\'ec\'edemment de type CSV. Cet outil proposera deux options de transformation au choix :
+\begin{itemize}
+\item cr\'eation d'un fichier de type CSV " synth\'etique " contenant les informations les plus pratiques.
+\item cr\'eation d'un fichier de type CSV " complet " contenant toutes les informations du fichiers PSI de d\'epart.
+\end{itemize}
+
+\subsubsection{Besoins non fonctionnels}
+
+
+?????????????????????????????????????????????????????
+Qu'est-ce que je met??????????????°
+
+
+
+
+\subsection{Caract\'eristiques communes aux diff\'erents outils de conversion}
+\subsubsection{Besoins fonctionnels}
+
+\begin{itemize}
+\item[$\bullet$] V\'erification des donn\'ees
+Il sera g\'en\'er\'e \`a chaque conversion un rapport indiquant les \'eventuelles erreurs et pertes d'information. Ce rapport pourra se pr\'esenter sous la forme d'un fichier texte ou HTML.
+
+\item[$\bullet$] Coh\'erence des donn\'ees en entr\'ee
+Dans tous les cas de conversion, le fichier introduit en entr\'ee devra respecter la DTD ou le sch\'ema XML relatif \`a son format pour que la conversion soit faite. 
+
+\item[$\bullet$] Jeu de tests
+Une fois que l'outil de conversion sera impl\'ement\'e, on \'evaluera la correction des transformations en appliquant un jeu de tests significatifs. Les r\'esultats seront utilis\'es pour valider l'outil d\'evelopp\'e. 
+\end{itemize}
+
+\subsubsection{Besoins non fonctionnels}
+\begin{itemize}
+\item[$\bullet$] D\'eveloppement par les tests
+Tout notre d\'eveloppement sera orient\'e tests. Chaque application sera valid\'ee par l'application de jeux de tests. Il ne sera pas fourni de preuve de la correction des algorithmes utilis\'es. 
+
+Il pourra être interessant de v\'erifier si les fichiers XML produits par nos transformations sont conformes aux sch\'emas XSD qu'ils sont cens\'es v\'erifier.
+
+\item[$\bullet$] Choix technologiques
+Les choix technologiques pressentis sont les suivant: 
+
+\begin{itemize}
+\item Les outils de conversion seront r\'ealis\'es \`a partir de feuilles de style en XSLT.
+\item Un choix d'un processeur XSLT unique pour l'ensemble des d\'eveloppements.
+\item Un ou plusieurs validateurs de fichiers XML par rapport \`a des sch\'emas XSD.
+\end{itemize}
+\end{itemize}
+
+\subsection{Manuels et Rapports}
+A la fin de l'\'etude, il sera fourni au client le document suivant : 
+\begin{itemize}
+\item Manuel Utilisateur: d\'ecrivant le fonctionnement des produits d\'evelopp\'es 
+\item Manuel de Maintenance: donnant les d\'etails d'impl\'ementations, les choix algorithmiques et techniques 
+\end{itemize}
+
+
+
+\subsection{Site Internet de pr\'esentation et de diffusion des outils}
+\subsubsection{Besoins fonctionnel}
+\begin{itemize}
+\item[$\bullet$] 3.6.1 Les outils de conversion
+Le site pr\'esentera rapidement les outils de conversion r\'ealis\'es et en d\'etaillera le fonctionnement. Il permettra \'egalement le t\'el\'echargement de ces outils. 
+
+\item[$\bullet$] Les formats de fichier
+Le site indiquera la structure des fichiers PSI utilis\'es ou indiquera des liens vers ces d\'efinitions. 
+Le site pr\'esentera la structure des fichiers de type CSV et en donnera la d\'efinition pr\'ecise. 
+\end{itemize}
+
+\subsubsection{Besoins non fonctionnels}
+Le site Internet sera impl\'ement\'e en HTML et PHP et pourra \'egalement interagir avec une base de donn\'ees MySQL.
+
+
+\section{Evolutions possibles} 
+
+Les points suivants ne font pas partie des priorit\'es du client, ils pourront \^etre trait\'es, si le temps le permet et feront l'objet d'un avenant \`a ce cahier des charges. 
+
+\subsection{Conversion de fichiers entre les formats BIND et PSI}
+
+On pourra d\'evelopper un outil r\'ealisant la conversion d'un fichier au format BIND vers le format PSI Canonique. 
+
+\subsection{Conversion r\'eciproque entre le format PSI et les formats DIP, BIND et CSV} 
+
+On pourra d\'evelopper les outils de transformation r\'eciproque \`a celles d\'etaill\'ees precedement. Ces outils se pr\'esenteraient sous une forme de module similaire \`a celui de la transformation directe. 
+
+
+\subsection{Web Service}
+
+Dans un premier temps on pourra mettre en place un syst\`eme simple, qui \`a partir d'une page du site permettra le t\'el\'echargement d'un fichier, lui appliquera la transformation d\'esir\'ee et retournera le fichier r\'esultat. 
+
+On pourra encore envisager de faire \'evoluer ce syst\`eme vers un v\'eritable Web Service en impl\'ementant une interface de communication en SOAP. 
+
+\section{Lexique}
+
+XML : eXtensible Markup Language
+Format permettant de stocker des donn\'ees dans un fichier de façon structur\'ee.
+XML a \'et\'e mis au point par le XML Working Group sous l'\'egide du World Wide Web Consortium (W3C) en 1996. Depuis le 10 f\'evrier 1998, les sp\'ecifications XML 1.0 ont \'et\'e reconnues comme recommandations par le W3C, ce qui en fait un langage reconnu. (Tous les documents li\'es \`a la norme XML sont consultables et t\'el\'echargeables sur le site Internet du W3C,  http://www.w3c.org/XML/).
+
+XSL : eXtensible StyleSheet Language
+Un langage de feuilles de style extensible d\'evelopp\'e sp\'ecialement pour XML permettant de transformer la structure des \'el\'ements XML.
+
+XSLT : eXtensible StyleSheet Language Transformation
+Langage de transformation des donn\'ees permettant de transformer la structure des \'el\'ements XML. Il s'agit d'une recommandation W3C du 16 novembre 1999.
+
+DTD : Document Type Definition
+C'est une grammaire permettant de v\'erifier la conformit\'e du document XML. La norme XML n'impose pas l'utilisation d'une DTD pour un document XML, mais elle impose par contre le respect exact des r\`egles de base de la norme XML.
+
+XSD : XML Schema Definition
+Fichier XML donnant la d\'efinition d'un format de fichier XML.
+
+BIND : Biomolecular Interaction Network Database
+Site Internet : http://www.bind.ca
+BIND poss\`ede un format de fichiers XML propre d\'ecrit dans une DTD. Ce format est tr\`es complet : il a \'et\'e cr\'ee pour d\'efinir de mani\`ere exhaustive les interactions entre les prot\'eines.
+ 
+DIP : Database of Interacting Proteins
+Site Internet : http://dip.doe-mbi.ucla.edu/
+DIP poss\`ede un format de fichiers XML propre d\'ecrit par un sch\'ema XSD. C'est un format permettant de d\'efinir les interactions binaires entre deux sites.
+
+IntAct : 
+IntAct est un projet interactions prot\'eines- prot\'eines. La base de donn\'ees IntAct est actuellement en cours de d\'eveloppement. IntAct est fonde sur une architecture objet, les insertions des \'el\'ements dans la base sont faites par s\'erialisation des objets. 
+
+Fichiers de type CSV : Comma Separated Value
+Fichier texte dont les donn\'ees sont s\'epar\'ees par un s\'eparateur pr\'ed\'efini (virgule, point-virgule, tabulation...). Ce type de fichier r\'esulte souvent  d'exportation de donn\'ees \`a partir de tableurs ou de base de donn\'ees.
+
+\section{Ech\'eancier pr\'evisionnel}
+
+En termes de d\'elais, voici une premi\`ere \'evaluation du temps n\'ecessaire d\'etaill\'ee phase par phase :
+
+\begin{itemize}
+\item 1: Conversion de fichiers entre les formats PSI Canonique et PSI D\'eroul\'e: 8 jours.
+
+\item 2: Conversion de fichiers entre les formats DIP et PSI: 8 jours.
+
+\item 3: Cr\'eation d'un format de type CSV: 2 jours.
+
+\item 4: Conversion de fichiers entre les formats PSI et CSV:  2 jours.
+
+\item 5: Site internet de pr\'esentation et de diffusion des outils:  3 jours.
+
+\end{itemize}
+Soit un total pr\'evu: 23 jours
+
+
+Les \'el\'ements du projet dont nous disposons ne nous permettent pas une \'evaluation pr\'ecise pour le moment, cet \'ech\'eancier est donc sujet \`a modifications.
+
+\section{Prise d'effet}
+
+Ce document engage :
+
+\begin{itemize}
+\item les \'el\`eves \`a r\'ealiser les \'el\'ements d\'etaill\'es dans la partie 3.
+\item le client qui acc\`epte ce cahier des charges. 
+\end{itemize}
+
+Fait \`a Talence, le 
+
+En deux exemplaires originaux,
+
+
+Signatures des \'el\`eves du groupe,\\
+Emmanuel CEZANNE\\
+S\'ebastien CROS\\
+Claire EVEN\\
+Nicolas JOLIBERT\\
+Sandrine MARQUES\\
+Christophe ROUMEGOUS\\
+Patrick SABLAYROLLES\\
+Ren\'e THOMAS-NELSON\\
+
+Signature du client,\\
+
+Florian IRAGNE\\
+
+
+Cahier des Charges\\
+
+Sujet : Gestion XML/XSLT de donn\'ees d'interaction prot\'eine-prot\'eine\\
+
+PROJET DE FIN D'ANNEE\\
+
+Copyright (c) ENSEIRB 2003

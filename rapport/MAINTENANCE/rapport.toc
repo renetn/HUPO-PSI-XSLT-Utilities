@@ -1,0 +1,51 @@
+\select@language {frenchb}
+\contentsline {chapter}{\numberline {1}Introduction}{3}
+\contentsline {chapter}{\numberline {2}Norme PSI ({\bf P}roteomics {\bf S}tandards {\bf I}nitiative)}{4}
+\contentsline {chapter}{\numberline {3}Outil de transformation de fichier PSI canonique en fichier PSI d\'eroul\'e - MIF\_unfold.xsl}{7}
+\contentsline {section}{\numberline {3.1}Hypoth\`eses de travail}{7}
+\contentsline {section}{\numberline {3.2}Algorithme}{7}
+\contentsline {section}{\numberline {3.3}Evolutions}{8}
+\contentsline {chapter}{\numberline {4}Outil de transformation de fichier PSI d\'eroul\'e en fichier PSI canonique - MIF\_fold.xsl}{9}
+\contentsline {section}{\numberline {4.1}Hypoth\`eses de travail}{9}
+\contentsline {section}{\numberline {4.2}Algorithmes}{9}
+\contentsline {section}{\numberline {4.3}Evolutions}{10}
+\contentsline {chapter}{\numberline {5}Outil de test de fichier canonique - MIF\_normalisedFormTester.xsl}{11}
+\contentsline {section}{\numberline {5.1}Hypoth\`eses de travail}{11}
+\contentsline {section}{\numberline {5.2}Algorithmes}{11}
+\contentsline {section}{\numberline {5.3}Evolutions}{11}
+\contentsline {chapter}{\numberline {6}Outil de test de fichier d\'eroul\'e - MIF\_denormalisedFormTester.xsl}{12}
+\contentsline {section}{\numberline {6.1}Hypoth\`eses de travail}{12}
+\contentsline {section}{\numberline {6.2}Algorithmes}{12}
+\contentsline {section}{\numberline {6.3}Evolutions}{12}
+\contentsline {chapter}{\numberline {7}Outil de visualisation de fichier PSI - MIF\_view.xsl}{13}
+\contentsline {section}{\numberline {7.1}Hypoth\`eses de travail}{13}
+\contentsline {section}{\numberline {7.2}Algorithmes}{13}
+\contentsline {section}{\numberline {7.3}Evolutions}{13}
+\contentsline {chapter}{\numberline {8}Transformation DIP en PSI}{14}
+\contentsline {section}{\numberline {8.1}Hypoth\`eses de travail}{14}
+\contentsline {section}{\numberline {8.2}\'Evolutions}{15}
+\contentsline {section}{\numberline {8.3}Algorithmes}{15}
+\contentsline {subsection}{\numberline {8.3.1}Feuille de style de transformation}{15}
+\contentsline {subsubsection}{Template project}{15}
+\contentsline {subsubsection}{Template node}{15}
+\contentsline {subsubsection}{Template feature}{16}
+\contentsline {subsubsection}{Template edge}{16}
+\contentsline {subsection}{\numberline {8.3.2}Feuille de style de validation }{16}
+\contentsline {section}{\numberline {8.4}Format de fichier}{16}
+\contentsline {chapter}{\numberline {9}Transformation de fichier PSI en fichier CSV}{17}
+\contentsline {section}{\numberline {9.1}Le format CSV}{17}
+\contentsline {subsection}{\numberline {9.1.1}Pr\'esentation du format CSV}{17}
+\contentsline {subsection}{\numberline {9.1.2}Structure du fichier r\'esultat}{17}
+\contentsline {section}{\numberline {9.2}Hypotheses de travail}{20}
+\contentsline {section}{\numberline {9.3}Evolutions}{20}
+\contentsline {section}{\numberline {9.4}Algorithmes}{21}
+\contentsline {section}{\numberline {9.5}Impl\'ementation}{22}
+\contentsline {subsection}{\numberline {9.5.1}Structure globale}{22}
+\contentsline {subsection}{\numberline {9.5.2}Structure associ\'ee \`a chaque tableau}{23}
+\contentsline {subsubsection}{Structure commune \`a tous les tableaux}{23}
+\contentsline {subsubsection}{Le tableau availabilityList}{23}
+\contentsline {subsubsection}{Le tableau experimentList}{23}
+\contentsline {subsubsection}{Le tableau interactorList}{23}
+\contentsline {subsubsection}{Le tableau interactionList}{24}
+\contentsline {subsubsection}{Le tableau featureList}{25}
+\contentsline {chapter}{\numberline {10}Glossaire}{26}

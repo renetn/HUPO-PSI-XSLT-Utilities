@@ -1,0 +1,136 @@
+\chapter{Outils concernant les transformations entre formats PSI}
+Il existe quatre outils concernant ces transformations :
+\begin{itemize}
+\item MIF\verb+_+unfold.xsl qui permet de passer du format PSI canonique \`a PSI d\'eroul\'e.
+\item MIF\verb+_+fold.xsl qui permet de passer du format PSI d\'eroul\'e \`a PSI canonique.
+\item Et deux fichiers de tests :
+\begin{itemize}
+\item MIF\_normalisedFormTester.xsl qui permet de v\'erifier qu'un fichier est bien en PSI canonique
+\item MIF\_denormalisedFormTester.xsl qui permet de v\'erifier qu'un fichier est bien en PSI d\'eroul\'e
+\end{itemize}
+\end{itemize}
+
+\section{MIF\_unfold.xsl}
+\subsection{Pr\'esentation}
+Cet outil permet \`a partir d'un fichier XML PSI sous forme canonique d'obtenir un fichier au format XML PSI sous forme d\'eroul\'e.
+\subsection{Fonctionnalit\'e}
+En entr\'ee il faut un fichier XML dans le format PSI canonique bien form\'e et conforme à la XSD. Il existe l'outil MIF\_normalisedFormTester.xsl qui permettra si on le souhaite de tester que le fichier d'entr\'ee est bien form\'e (cf partie suivante).\\
+\\
+En sortie, nous obtenons un fichier XML dans le format PSI d\'eroul\'e. Ce fichier contient les m\^emes informations que celles contenues dans le fichier de d\'epart si celui-ci \'etait bien form\'e.
+
+\subsection{Usage}
+Pour mettre en oeuvre cette transformation, il faut utiliser la ligne de commande suivante :
+\begin{center}
+xsltproc -o \verb+<+nom du fichier d'arriv\'ee.xml\verb+>+ MIF\verb+_+unfold.xsl \verb+<+nom du fichier d'entr\'ee\verb+>+
+\end{center}
+(cf chapitre xsltproc pour plus d'informations)
+
+\subsection{D\'epannage}
+Si les conditions de d\'epart ne sont pas v\'erifi\'ees, c'est \`a dire que le fichier d'entr\'ee n'est pas bien form\'e, plusieurs cas de figure se pr\'esentent:
+\begin{itemize}
+\item Il peut y avoir des r\'ef\'erences \`a rien. Dans ce cas, le r\'esultat sera totalement erron\'e.
+\item Il peut y avoir des descriptions dans les int\'eractions au lieu de r\'ef\'erences. Dans ce cas, le r\'esultat reste correct.
+\end{itemize}
+
+\section{MIF\_normalisedFormTester.xsl}
+\subsection{Pr\'esentation}
+Ce fichier est un test permettant de v\'erifier qu'un fichier PSI est bien PSI canonique.
+
+\subsection{Fonctionnalit\'e}
+En entr\'ee, il faut un fichier XML de format PSI.
+
+En sortie, on a fichier rapport au format HTML qui renvoie la liste des erreurs (s'il y en a) que l'on a rencontr\'e et qui font que le fichier d'entr\'ee n'est pas en PSI canonique. Ces erreurs peuvent \^etre les suivantes :
+\begin{itemize}
+\item Celles appel\'ees {\it  List of misplaced descriptions :} lorsque l'on a une description dans les int\'eractions au lieu d'une r\'ef\'erence. \\Si ce champ est vide c'est qu'il n'y a aucune erreur. Par contre quand il y a une erreur, plusieurs informations sont indiqu\'ees :
+\begin{itemize}
+\item Le num\'ero de l'int\'eraction dans laquelle l'erreur a \'et\'e d\'etect\'ee.
+\item L'attribut {\it id} de la description concern\'ee.
+\end{itemize}
+\item Celles appel\'ees {\it  List of undefined references :} qui indiquent s'il existe des r\'ef\'erences vers des descriptions qui n'existent pas.\\Si ce champ est vide, c'est qu'il n'y a aucune erreur. Par contre, lorsqu'il y a une erreur, plusieurs informations sont indiqu\'ees :
+\begin{itemize}
+\item Le num\'ero de l'int\'eraction dans laquelle l'erreur a \'et\'e d\'etect\'ee.
+\item L'attribut {\it ref} de la r\'ef\'erence concern\'ee.
+\end{itemize}
+\end{itemize}
+\subsection{Usage}
+Pour mettre en oeuvre cette transformation, il faut utiliser la ligne de commande suivante :
+\begin{center}
+xsltproc -o \verb+<+nom du fichier d'arriv\'ee.html\verb+>+ MIF\_normalisedFormTester.xsl \verb+<+nom du fichier d'entr\'ee\verb+>+ 
+\end{center}
+(cf chapitre xsltproc pour plus d'informations)
+
+\section{MIF\_fold.xsl}
+\subsection{Pr\'esentation}
+Cet outil permet \`a partir d'un fichier XML de format PSI d\'eroul\'e d'obtenir ce m\^eme fichier transform\'e dans le format PSI canonique en XML.
+\subsection{Fonctionnalit\'e}
+En entr\'ee il faut un fichier XML dans le format PSI d\'eroul\'e bien form\'e. Il existe l'outil MIF\_denormalisedFormTester.xsl qui permettra si on le souhaite de tester que le fichier d'entr\'ee est bien form\'e (cf partie suivante).\\
+ \\
+En sortie, nous obtenons un fichier XML dans le format PSI canonique. Ce fichier a les m\^emes informations que celles contenues dans le fichier de d\'epart si celui-ci \'etait bien form\'e.
+\subsection{Usage}
+Pour mettre en oeuvre cette transformation, il faut utiliser la ligne de commande suivante :
+\begin{center}
+xsltproc -o \verb+<+nom du fichier d'arriv\'ee.xml\verb+>+ MIF\verb+_+fold.xsl \verb+<+nom du fichier d'entr\'ee\verb+>+
+\end{center}
+(cf chapitre xsltproc pour plus d'informations)
+\subsection{D\'epannage}
+Si les conditions de d\'epart ne sont pas v\'erifi\'ees, c'est \`a dire que le fichier d'entr\'ee n'est pas bien form\'e, plusieurs cas de figure se pr\'esentent:
+\begin{itemize} 
+\item Il peut y a des r\'ef\'erences au lieu de descriptions dans les int\'eractions. Dans ce cas le r\'esultat restera correct.
+\item Il peut y a des descriptions dans les listes (experimentList, interactorList et availabilityList),alors qu'en PSI d\'eroul\'e il ne doit rien y avoir dans les listes. Dans ce cas le r\'esultat restera correct mais ces descriptions seront perdues.
+\item Il peut y avoir plusieurs descriptions avec le m\^eme attribut {\it id} mais ayant des contenus diff\'erents. Dans ce cas seul la premi\`ere descriptions rencontr\'ee avec un nouvel attribut sera conserv\'ee en PSI canonique.
+\end{itemize}
+
+\section{MIF\_denormalisedFormTester.xsl}
+\subsection{Pr\'esentation}
+Ce fichier est un test permettant de v\'erifier qu'un fichier PSI est bien PSI d\'eroul\'e.
+
+\subsection{Fonctionnalit\'e}
+En entr\'ee, il faut un fichier XML de format PSI.
+
+En sortie, on a fichier HTML qui renvoie les erreurs (s'il y en a) que l'on a rencontr\'e et qui font que le fichier d'entr\'ee n'est pas en PSI d\'eroul\'e. Ces erreurs peuvent \^etre les suivantes :
+\begin{itemize}
+\item Celles appel\'ees {\it List of not allowed references :} qui indiquent lorsque l'on a une r\'ef\'erence dans les int\'eractions au lieu d'une description. \\Si ce champ est vide c'est qu'il n'y a aucune erreur. Par contre quand il y a une erreur, plusieurs informations sont indiqu\'ees :
+\begin{itemize}
+\item Le num\'ero de l'intéraction dans laquelle on a cette erreur.
+\item L'attribut {\it ref} qui correspond \`a cette r\'ef\'erence.
+\end{itemize}
+\item Celles appel\'ees {\it List of misplaced definitions :} qui indiquent s'il existe des d\'efinitions dans les listes.\\Si ce champ est vide, c'est qu'il n'y a aucune erreur. Par contre, lorsqu'il y a une erreur, plusieurs informations sont indiqu\'ees :
+\begin{itemize}
+\item la position de l'experimentDescription dans la liste.
+\item La valeur de l'attribut {\it id} correspondant \`a cette experimentDescription.
+\end{itemize}
+\item Celles appel\'ees {\it List of contradictory descriptions :} qui indiquent lorsque l'on a plusieurs descriptions ayant des attributs {\it id} identiques mais des contenus diff\'erents. \\Si ce champ est vide c'est qu'il n'y a aucune erreur. Par contre quand il y a une erreur, plusieurs informations sont indiqu\'ees :
+\begin{itemize}
+\item L'attribut {\it id} de la description dans laquelle on a trouv\'e une erreur.
+\item Le contenu de la description mise en cause.
+\item Le num\'ero de l'int\'eraction dans laquelle se trouve la description mise en cause.
+\item Le contenu de la description qui sera gard\'ee lorsque l'on appliquera {\it MIF\verb+_+fold.xsl}.
+\item Le num\'ero de l'int\'eraction dans laquelle se trouve la description qui sera retenue.
+\end{itemize}
+\end{itemize}
+\subsection{Usage}
+Pour mettre en oeuvre cette transformation, il faut utiliser la ligne de commande suivante :
+\begin{center}
+xsltproc -o \verb+<+nom du fichier d'arriv\'ee.html\verb+>+ MIF\_denormalisedFormTester.xsl \verb+<+nom du fichier d'entr\'ee\verb+>+
+\end{center}
+(cf chapitre xsltproc pour plus d'informations)
+
+\section{MIF\_view.xsl}
+\subsection{Pr\'esentation}
+Cet outil permet \`a partir d'un fichier XML PSI sous forme canonique d'obtenir un fichier HTML qui présente les intéraction sous forme synthétique.
+\subsection{Fonctionnalit\'e}
+En entr\'ee il faut un fichier XML dans le format PSI canonique bien form\'e et conforme à la XSD. Il existe l'outil MIF\_normalisedFormTester.xsl qui permettra si on le souhaite de tester que le fichier d'entr\'ee est bien form\'e (cf partie suivante).\\
+\\
+En sortie, nous obtenons un fichier HTML qui présente les intéraction. On affiche les sources et les licences du fichiers. Puis on construit un tableau dont chaque ligne est un participant à une intéraction. Le tableau présente les données : {\em interactorRef/@ref} or {\em proteinInteractor/names/shortLabel}, {\em participant/role}, {\em participant/isTaggedProtein}, {\em participant/isOverexpressedProtein}, {\em interactionType}. Pour plus de lisibilité les lignes sont regroupées par intéraction et on alterne la couleur d'affichage d'un partiant à chaque linge.
+
+\subsection{Usage}
+Pour mettre en oeuvre cette transformation, il faut utiliser la ligne de commande suivante :
+\begin{center}
+xsltproc -o \verb+<+nom du fichier d'arriv\'ee.html\verb+>+ MIF\verb+_+view.xsl \verb+<+nom du fichier d'entr\'ee.xml\verb+>+
+\end{center}
+(cf chapitre xsltproc pour plus d'informations)
+
+\subsection{D\'epannage}
+Si les conditions de d\'epart ne sont pas v\'erifi\'ees, c'est \`a dire que le fichier d'entr\'ee n'est pas bien form\'e, les données ne seront pas affichés correctements.
+
+

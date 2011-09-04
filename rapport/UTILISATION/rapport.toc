@@ -1,0 +1,45 @@
+\select@language {frenchb}
+\contentsline {chapter}{\numberline {1}Introduction}{3}
+\contentsline {chapter}{\numberline {2}Outils concernant les transformations entre formats PSI}{4}
+\contentsline {section}{\numberline {2.1}MIF\_unfold.xsl}{4}
+\contentsline {subsection}{\numberline {2.1.1}Pr\'esentation}{4}
+\contentsline {subsection}{\numberline {2.1.2}Fonctionnalit\'e}{4}
+\contentsline {subsection}{\numberline {2.1.3}Usage}{5}
+\contentsline {subsection}{\numberline {2.1.4}D\'epannage}{5}
+\contentsline {section}{\numberline {2.2}MIF\_normalisedFormTester.xsl}{5}
+\contentsline {subsection}{\numberline {2.2.1}Pr\'esentation}{5}
+\contentsline {subsection}{\numberline {2.2.2}Fonctionnalit\'e}{5}
+\contentsline {subsection}{\numberline {2.2.3}Usage}{6}
+\contentsline {section}{\numberline {2.3}MIF\_fold.xsl}{6}
+\contentsline {subsection}{\numberline {2.3.1}Pr\'esentation}{6}
+\contentsline {subsection}{\numberline {2.3.2}Fonctionnalit\'e}{6}
+\contentsline {subsection}{\numberline {2.3.3}Usage}{6}
+\contentsline {subsection}{\numberline {2.3.4}D\'epannage}{6}
+\contentsline {section}{\numberline {2.4}MIF\_denormalisedFormTester.xsl}{7}
+\contentsline {subsection}{\numberline {2.4.1}Pr\'esentation}{7}
+\contentsline {subsection}{\numberline {2.4.2}Fonctionnalit\'e}{7}
+\contentsline {subsection}{\numberline {2.4.3}Usage}{7}
+\contentsline {section}{\numberline {2.5}MIF\_view.xsl}{8}
+\contentsline {subsection}{\numberline {2.5.1}Pr\'esentation}{8}
+\contentsline {subsection}{\numberline {2.5.2}Fonctionnalit\'e}{8}
+\contentsline {subsection}{\numberline {2.5.3}Usage}{8}
+\contentsline {subsection}{\numberline {2.5.4}D\'epannage}{8}
+\contentsline {chapter}{\numberline {3}Outil de transformation de fichier DIP en fichier PSI canonique}{9}
+\contentsline {section}{\numberline {3.1}Pr\'esentation}{9}
+\contentsline {section}{\numberline {3.2}Fonctionnalit\'es}{9}
+\contentsline {subsection}{\numberline {3.2.1}R\^ole de l'outil}{9}
+\contentsline {subsection}{\numberline {3.2.2}Description du fichier DIP d'entr\'ee}{10}
+\contentsline {subsection}{\numberline {3.2.3}Description du fichier PSI obtenu}{10}
+\contentsline {section}{\numberline {3.3}Usage}{10}
+\contentsline {section}{\numberline {3.4}D\'epannage}{10}
+\contentsline {chapter}{\numberline {4}Outil de transformation de fichier PSI canonique en fichier CSV}{11}
+\contentsline {section}{\numberline {4.1}Pr\'esentation}{11}
+\contentsline {section}{\numberline {4.2}Fonctionnalit\'es}{11}
+\contentsline {subsection}{\numberline {4.2.1}R\^ole de l'outil}{11}
+\contentsline {subsection}{\numberline {4.2.2}Description du fichier CSV obtenu}{12}
+\contentsline {subsubsection}{Le format CSV}{12}
+\contentsline {subsubsection}{La structure du fichier r\'esultat}{12}
+\contentsline {section}{\numberline {4.3}Usage}{14}
+\contentsline {section}{\numberline {4.4}D\'epannage}{14}
+\contentsline {chapter}{\numberline {5}Bibliographie}{15}
+\contentsline {chapter}{\numberline {6}Glossaire}{16}

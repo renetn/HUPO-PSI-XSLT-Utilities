@@ -1,0 +1,87 @@
+\section{Description de l'outil de transformation PSI vers CSV}
+
+Comme nous l'avons déjà précisé précédemment, un de nos buts était de réaliser un outil permettant de transformer un fichier XML au format PSI canonique en un fichier au format CSV. La solution la plus naturelle et sans doute, dans notre cas, la plus performante était de réaliser cet outil sous la forme d'une feuille de style au format XSLT.\\
+
+Nous allons tout d'abord décrire la structure du fichier CSV obtenu après transformation du fichier PSI initial avant de présenter l'outil XSLT en lui-même.
+
+\subsection{Structure du fichier cible}
+
+\subsubsection{Le format CSV}
+
+Le fichier résultat de l'application de notre outil au fichier XML est un fichier de type Coma Separated Value (CSV). Ce format décrit une structure de tableur, c'est à dire qu'il s'agit d'un fichier texte dans lequel les données sont alignées en colonne. Le saut d'une colonne à une autre est représenté par le caractère ``point-virgule'' et le retour à la ligne est représenté par le caractère ``retour chariot''. Le fichier résultat fournit en fait 5 sous-tableaux les uns en dessous des autres.
+
+\subsubsection{La structure du fichier résultat}
+
+Le fichier résultat récapitule les données du fichier PSI sous forme de 5 tableaux :\\
+
+\begin{itemize}
+\item[$\bullet$] Un tableau intitulé {\bf [\_Availability List\_]} qui liste les licences et droits relatifs aux données contenues dans les fichiers. Les données de ce tableau sont celles contenues dans les noeuds de l'arborescence PSI de racine le noeud \texttt{availabilityList}. Il en est de même pour l'ensemble des cinq tableaux.\\
+
+\item[$\bullet$] Un tableau intitulé {\bf [\_Experiment List\_]} qui liste les experiences et leurs caracteristiques. Les premiers champs {\it ID, shortlabel} et {\it fullname} permettent une identification rapide de chaque experience.\\
+
+\item[$\bullet$] Un tableau intitulé {\bf [\_Interactor List\_]} qui liste les interacteurs et leurs particularités. Les premiers champs {\it ID, shortlabel} et {\it fullname} permettent une identification rapide de chaque interacteur.\\
+
+\item[$\bullet$] Un tableau intitulé {\bf [\_Interaction List\_]} qui liste les interactions et leurs propriétés. Il est constitué d'une ligne par participant. Le premier champ, {\it No\_participant}, indique un numero de participant par interaction (généré par la feuille de style) et le second, {\it interaction\_id}, l'ID de l'interaction.\\
+
+\item[$\bullet$] Un tableau intitulé {\bf [\_Feature List\_]} qui liste les descriptions des dispositifs d'experimentation. Le premier champ, {\it interaction\_id}, indique l'ID de l'interaction correspondant à ces descriptions.  
+\end{itemize}
+
+\begin{figure}[h]%[htbp]
+\begin{center}
+\includegraphics[scale=0.4]{tableaux_csv.eps}
+\caption{Structure du fichier CSV final}
+\end{center}
+\end{figure}
+\pagebreak
+
+
+\subsection{Structure de l'outil lui-même}
+
+\subsubsection{Structure commune à tous les tableaux}
+
+A chaque tableau est associé un \texttt{template} particulier. Cependant, ces derniers ont une structure commune. En effet, chaque \texttt{template} débute par le codage en dur des en-têtes de colonnes du tableau associé. Cela consiste en l'écriture de chaque champ du tableau entre crochets, chaque en-tête étant séparé par un point-virgule. De cette manière, on définit la seconde ligne du tableau avec autant de colonnes qu'il n'y a de champs correspondant dans l'arborescence PSI.\\
+
+En outre, chaque \texttt{template} doit permettre de gérer le fait qu'un tableau peut être constitué de plusieurs lignes. De ce fait, lors de l'appel à un \texttt{template} dans le \texttt{template} ``général'', on se place au noeud correspondant dans l'arborescence de PSI (par exemple, l'appel {\it<xsl:apply-templates select="availabilityList"/>} se place au niveau du noeud {\it/entryset/entry/availabilityList} de l'arborescence). Ainsi, si on garde l'exemple, chaque ligne du tableau \texttt{availabilityList} va contenir une occurence de \texttt{availability}. Dès lors, pour traiter les informations de chaque \texttt{availability}, on fait appel à la fonction \texttt{xsl:for-each} qui initialise une boucle permettant de traiter les mêmes informations pour chaque ligne et de générer ces dernières les unes en dessous des autres.\\
+ 
+En bref, chaque \texttt{template} contient la définition en dur des en-têtes de colonnes du tableau qui lui est associé et une boucle permettant d'inscrire les informations du tableau (provenant du fichier xml source) ligne par ligne.
+
+\subsubsection{Le tableau availabilityList}
+
+Ce tableau a une structure strictement identique à celle décrite ci-dessus. Par ailleurs, chaque noeud ayant pour père un noeud \texttt{availability} a sa valeur affichée dans la colonne correspondante du tableau via un appel à la fonction \texttt{xsl:value-of}. 
+
+\subsubsection{Le tableau experimentList}
+
+Ce tableau a une structure strictement identique à la structure commune décrite précédemment. Par ailleurs, chaque noeud ayant pour père un noeud \texttt{experimentDescription} a sa valeur affichée dans la colonne correspondante du tableau via un appel à la fonction \texttt{xsl:value-of}. 
+
+\subsubsection{Le tableau interactorList}
+
+Ce tableau a une structure strictement identique à la structure commune décrite précédemment. Par ailleurs, chaque noeud ayant pour père un noeud \texttt{interactor} a sa valeur affichée dans la colonne correspondante du tableau via un appel à la fonction \texttt{xsl:value-of}. 
+\newpage
+
+\subsubsection{Le tableau interactionList}
+
+Ce tableau n'est pas construit de la même manière que les autres. En effet, il a la particularité suivante : au lieu de consacrer une ligne par interaction (comme on a dédié une ligne par \texttt{interactor} dans le tableau \texttt{interactorList} par exemple), on associe une ligne à chaque participant de l'interaction.\\
+
+Plus en détails, étant donné que chaque interaction peut faire intervenir plusieurs participants, il apparait plus performant de consacrer une ligne par participant d'une interaction tout en stockant un champ de référence unique pour chaque interaction étudiée. Ceci facilite la construction du tableau qui, sinon, aurait un nombre de colonnes variable dépendant du nombre de participants.\\
+
+Ceci étant dit, cette solution d'implémentation introduit de nouveaux problèmes. En effet, pour chaque participant, on va recopier les informations liées à son interaction dans le tableau. Par conséquent, outre la redondance d'informations occasionnée qui n'est pas gênante dans notre cas, on va être obligé de rechercher toutes les informations d'une interaction à chaque fois que l'on renseigne les données d'un de ses participants.\\ 
+
+Pour palier à cette recherche inutile, nous avons déclaré un certain nombre de variables destinées chacune à stocker une information d'une interaction. Ainsi, lors de l'appel au \texttt{template}, on va traiter chaque interaction l'une à la suite de l'autre. Pour une interaction, on stocke ses données ``propres'' dans ces variables et, pour chacun de ses participants, on remplit une ligne du tableau en recherchant les données du participant lui-même et en faisant appel directement aux variables (c'est là qu'on économise sur la recherche) pour remplir les données liée à l'interaction. Dès que l'on a traité tous les participants d'une interaction, on stocke dans les mêmes variables les données relatives à l'interaction suivante dans la liste.\\
+   
+Ainsi, à chaque fois que l'on traite un participant, on n'est pas obligé de rechercher les données de l'interaction qui lui est associée, il suffit de faire appel aux variables dans lesquelles ces données sont stockées.\\
+
+Enfin, comme nous l'avons souligné plus tôt, nous avons décidé de différencier les interactions les unes des autres en créant, via la commande {\it <xsl:value-of select=''position()''/> }, un identifiant unique s'incrémentant automatiquement pour chacune d'entre elles. Ainsi, la première colonne de notre tableau contient l'identifiant permettant de rendre unique chaque participant, tandis que la seconde contient un identifiant permettant de rendre unique chaque interaction.  
+\newpage
+\subsubsection{Le tableau featureList}
+
+D'après l'arborescence PSI, il peut y avoir plusieurs \texttt{feature} par interaction. De même que précédemment, cela pose un problème puisque le tableau \texttt{interactionList} peut alors avoir un nombre variable de colonnes. C'est pourquoi nous avons créé ce tableau.\\
+
+Sa structure est identique à la structure générale décrite précédemment. Cependant, pour bien remettre chaque \texttt{feature} dans son contexte, il faut ajouter une colonne à ce tableau contenant une référence (un identifiant) à l'interaction à laquelle il se rapporte. Or, ceci entraine un problème, à savoir que les références en question doivent être identiques à celles générées dans le tableau \texttt{interactionList} décrit dans la section précédente pour que l'utilisateur final puisse se repérer.\\
+
+Le problème est que, ces deux tableaux étant générés dans des \texttt{template} différents, les variables décrites précédemment n'ont pas une portée suffisante pour être réutilisées. Comment faire pour avoir une correspondance entre les identifiants des deux tableaux ?\\
+
+La solution consiste à se replacer au niveau du noeud \texttt{interactionList}, ce qui nous permet de recommencer à numéroter chaque interaction de la même façon que précédemment et de gérer les \texttt{feature} au fur et à mesure. Ceci pose alors un nouveau problème au niveau du \texttt{template} ``général'', à savoir que pour générer les deux tableaux \texttt{interactionList} et \texttt{featureList}, on serait alors amenés à appeler le même \texttt{template} (au niveau du noeud \texttt{interactionList}) ce qui entrainerait une ambigüité. C'est pourquoi nous avons fait usage de l'attribut \texttt{mode} de la balise \texttt{template} qui nous permet de nous placer au même niveau de l'arborescence pour chacun des deux \texttt{template} tout en effectuant des traitements différents pour chacun d'eux.\\
+
+Notre problème se trouve alors résolu puisque nos deux tableaux sont générés et que les identifiants des interactions correspondent dans les deux tableaux.
+
+

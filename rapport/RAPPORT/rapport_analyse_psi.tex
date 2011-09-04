@@ -1,0 +1,103 @@
+
+Le travail qui nous a et\'e demand\'e consiste donc \`a r\'ealiser des outils permettant de transformer un document XML source en un document XML r\'esultat sans perte d'informations. Le fichier r\'esultat doit respecter la XSD de PSI. Une XSD \'etant une descriptiuon formelle de la structure d'un document XML. C'est \`a dire les balises autoris\'ees, les types qui leur sont associ\'es ainsi que leur nombre d'occurences \`a l'int\'erieur d'un \'el\'ement donn\'e.\\
+ Il nous \'et\'e aussi demand\'e de r\'ealiser un outil permettant de transformer un document PSI source en document CSV (document texte) dont le format \'etait \`a d\'efinir.\\
+Pour r\'ealiser ces outils, notre choix s'est imm\'ediatemment port\'e sur le langange XSL. Il s'agit d'un langage permettant de transformer un document XML (ou texte) source en un document XML (ou texte) r\'esultat. C'est \`a dire un langage correspondant exactement \`a nos besoins.\\
+\\  
+Notre travail a donc \'et\'e divis\'e en trois grande parties correspondant \`a un ensemble de transformations \`a effectuer.\\
+\\
+Dans une premi\`ere partie, nous exposerons donc l'analyse en ce qui concerne la transformation PSI CANONIQUE vers PSI DEROULE ainsi que la trnsformation r\'eciproque.\\
+Dans une deuxi\`eme partie, nous traiterons la transformation DIP vers PSI.\\
+Enfin, nous presenterons la transformation PSI vers CSV.
+
+\section{Transformations PSI canonique et  PSI d\'eroul\'e}
+
+Dans cette partie, nous allons d\'ecrire tout d'abord le format PSI dans ses formes CANONIQUE et D\'EROUL\'E.\\ 
+Par la suite, nous decrirons comment nous avons r\'ealis\'e la transformation PSI CANONIQUE vers PSI D\'EROUL\'E et reciproquement.
+
+\subsection{{\bf P}roteomics {\bf S}tandards {\bf I}nitiative ({\bf PSI})}
+PSI est un groupe internationnal qui travaille sur les échanges de données d'interaction protéine-protéine. Ce groupe à définit un format de fichier XML quie est celui utilisé par nos outils. Les données d'interaction sont manipulées différents organismes de taille variable. Certain de ces organismes possède des banques de données qui traitent un nombre important de données, d'autres possèdent des structures plus modeste.\\
+\\
+A l'heure actuelle, chacun de ces acteurs stocke ses données dans un format qui leur est propre, ceci explique donc la nécessité de cette norme et des outils des transformation associés.\\
+\\
+Nous allons donc définir cette norme. Une définiton précise des champs est fournie dans l'annexe 1. Nous essaierons ici de donner une vue plus générale du PSI.\\
+\\
+La norme PSI est définie par un schéma XML, appelé XSD ({\bf X}ML {\bf S}chéma {\bf D}éfinition). Ce schéma définit le format des fichiers XML contenant les données d'interaction. Il donne les éléments (balises) valides pour un fichier XML, le type de contenu et les attributs qui leur sont associés.\\
+\\
+Les concepteurs du format PSI ont défini de formes de fichiers PSI (PSI canonique et PSI deroulé).La première définit un fichier PSI sans redondance d'informations dit canonique. La deuxième définit un fichier PSI avec redondance d'informations dit déroulé.\\
+\\
+Plus précisément, un fichier PSI présente les interactions concernant un ensemble de proteines. Pour cela, il doit contenir les informations concernant les expériences qui ont été effectuées sur ces protéines pour mettre en évidence les interactions, les différentes protéines y participant et les droits et licences qui leur sont associés. Ces éléments (protéines, expériences,droits et licences) sont mis en relation dans la définiton d'interactions (voir figure 2.1 et 2.2). \\
+\\
+Dans sa forme canonique, le fichier PSI défini en entête la liste des expériences réalisées, la liste des protéines interagissant, ainsi que la liste des droits et licences. Chaque interaction fait ensuite référence \'a un ou plusieurs élément de ces listes en utilisant son identificateur. Dans ce mode, à l'interieur d'une interaction il n'y a donc que des références vers ces objets (voir figure 2.1).\\
+\\
+Dans se forme déroulée, les listes d'entête sont vides et les interactions contiennent la description complète des experiences, des interacteurs, ainsi que des droits et licences. Il n'y a donc aucune référence dans les interactions. Ces informations sont donc dupliquées autant que nécéssaire (voir figure 2.2). Toutes les informations disponibles sont accessible au niveau de l'interaction.\\ 
+\\
+{\bf \underline{Remarque}}: Un fichier contenant un mélange de ces deux définitions sera valide en ce qui concerne le schéma (XSD) PSI mais entraînera des pertes lors de l'exécution des transformations. En effet, il devra être considéré à un instant donné comme faisant partie de l'un de ces formats. En effet, s'il est considéré canonique, toute description dans une interaction sera conservée. En revanche, s'il est considéré comme déroulé, tous les élements présents dans les listes d'en-tête seront ignorés.\\ 
+\\
+Nous présentons dans la suite les outils permettant de passer de l'un des formats à l'autre.
+\begin{figure}%[htbp]
+\begin{center}
+\includegraphics[scale=1]{psi_fold.eps}
+\caption{Structure simplifiée de PSI canonique}
+\includegraphics[scale=1]{psi_unfold.eps}
+\caption{Structure simplifiée de PSI déroulé}
+\end{center}
+\end{figure}
+
+\subsection{Transformation de PSI canonique vers PSI d\'eroul\'e}
+Pour cette transformation, nous avons cr\'e\'e un fichier de transformation appel\'e {\it MIF\verb+_+unfold.xsl}. C'est une feuille de style permettant de passer d'un format XML \`a un autre.
+
+Ce fichier permet \`a partir d'un format PSI CANONIQUE d'aboutir \`a un format PSI D\'EROUL\'E, c'est \`a dire que l'on modifie les champs suivants :
+
+\begin{itemize}
+\item[$\bullet$] Remplacer chaque référence dans les interactions par la description correspondante de la liste de définitions. En pratique, un élément {\em experimentRef} sera remplacé par un élément {\em experimentDescription}, {\em availabilityRef} par {\em availabilityDescription} et {\em interactorRef} par {\em proteinInteractor}. La correspondance se fait entre l'attribut {\em ref} des références et l'attribut {\em id} des descritions. 
+\item[$\bullet$] Vider les listes situées en en-tête. En fait on ne recopie pas dans le fichier de sortie le contenu des listes : {\it availabilityList, experimentList} et {\it interactorList}.
+\item[$\bullet$] Recopier tous les autres éléments et attributs à l'identique.
+\end{itemize}
+
+\subsection{Transformation de PSI d\'eroul\'e vers PSI canonique}
+Cette transformation a \'et\'e un peu plus d\'elicate. Pour ceci nous avons cr\'e\'e un fichier de transformation appel\'e {\it MIF\verb+_+fold.xsl}.
+
+Pour cette transformation, il a fallu :
+\begin{itemize}
+\item[$\bullet$] Remplacer toutes les descriptions au niveau des interactions par des références. Les élements {\em experimentDescription}, {\em availibilityDescription}, {\em proteinInteractor} sont remplacés respectivement par les références ({\it experimentRef, availabilityRef} et {\it interactorRef}). L'attribut {\em ref} de chaque référence correspond à l'attribut {\em id} de chaque descrition. 
+\item[$\bullet$] Remplir les listes de descriptions {\it availabilityList, experimentList} et {\it interactorList}. Pour chaque liste :
+\begin{itemize}
+\item on lit les descritions au niveau des interactions.
+\item on ajoute cette définition si elle n'est pas déjà dans la liste. Concrètement, seule la première définition (dans l'ordre du fichier) sera conservée.
+\item trier les descriptions par l'attribut {\em id}.
+\end{itemize}
+\item[$\bullet$] Recopier tous les autres éléments et attributs à l'identique.
+\end{itemize}
+
+
+Mais ceci a pos\'e quelques probl\`emes :
+\begin{itemize}
+\item Nous ne gardons dans les listes que le premier \'el\'ement experimentDescription (resp. availabilityDescription et proteinInteractor) rencontr\'e ayant un {\it id} unique. En effet on ne garde dans les listes qu'un repr\'esentant de chaque des cription et celui-ci sera toujours le premier rencontr\'e.
+\item Si jamais le fichier de d\'epart \'etait mal form\'e, c'est \`a dire qu'il existerait plusieurs descriptions diff\'erentes pour le m\^eme {\it id}, il y aurait un probl\`eme lorsque l'on ajouterait une description dans une des listes. En effet on ne garde qu'une description pour chaque {\it id}. Donc nous avons choisi de ne garder que la premi\`ere description rencontr\'ee pour chaque {\it id} et de faire un fichier de test qui permet \`a l'utilisateur s'il le souhaite uniquement de v\'erifier qu'il n'y a pas de probl\`emes de ce genre avant d'utiliser le fichier de transformation.
+\item Il a fallu trouver une astuce (qui sera expliqu\'ee dans la partie conception et mise en oeuvre) permettant de traiter tout d'abord le remplissage des listes, puis la transformation des descriptions en r\'ef\'erences. Car nous avions un probl\`eme \'etant donn\'e que la feuille de style ne prenait pas en compte les modifications au cours du traitement pour un traitement ult\'erieur, nous avions donc \'ecrit deux feuilles de style que nous devions appliquer l'une apr\`es l'autre.
+\end{itemize}
+
+\subsection{Tester si un fichier XML est CANONIQUE}
+On a cr\'ee un fichier de test appel\'e {\it MIF\_normalisedFormTester.xsl} qui permet de savoir si un fichier PSI est bien CANONIQUE. Ce test nous renvoie un fichier HTML qui indique les erreurs que le fichier peut contenir.
+
+Dans cette partie, nous allons d\'ecrire l'outil permettant de v\'erifier si un fichier est canonique.\\
+Il g\'en\`ere un fichier HTML contenant les erreurs eventuelles.\\
+Cet outil a pour but de v\'erifier les points suivant:
+\begin{itemize}
+\item[$\bullet$] Vérifier si toutes les références sont valides. Une référence sera invalide si il ne correspond aucune description dont l'attribut {\em id} et égal à sont attribut {\em ref}. 
+\item[$\bullet$] Vérifier s'il n'y a pas de description d'éléments au niveau des interactions. On recherche la présence des champs ({\it experimentDescription, availabilityDescription, proteinInteractor} au niveau d'une interaction.
+\end{itemize}
+
+\subsection{Tester si un fichier XML est D\'EROUL\'E}
+On a cr\'ee un fichier de test appel\'e {\it MIF\_denormalisedFormTester.xsl} qui permet de savoir si un fichier PSI est bien D\'EROUL\'E. Ce test nous renvoie un fichier HTML qui indique les erreurs que le fichier peut contenir.
+
+Pour cela on teste plusieurs points:
+\begin{itemize}
+\item On teste tout d'abord s'il y a des r\'ef\'erences au lieu de descriptions dans les int\'eractions. \\Si une telle erreur est d\'etect\'ee, elle sera indiqu\'ee dans la partie {\it References not allowed in the interaction elements}.
+\item On teste \'egalement s'il y a des descriptions dans les listes (experimentList, interactorList et availabilityList), car en D\'EROUL\'E il ne doit rien y avoir dans les listes. \\Quand une telle erreur est d\'etect\'ee, elle est indiqu\'ee dans la partie {\it Definitions in the lists of the top not allowed}.
+\item On v\'erifie que toutes les descriptions ayant un m\^eme {\it id} aient un contenu identique (cela ne teste que le contenu ``\'ecrit'', mais pas les attributs qui pouraient se trouver \`a l'int\'erieur). Ceci est utile car lorsque l'on applique {\it MIF\verb+_+FOLD.xsl}, on ne place dans les listes que la premi\`ere description rencontr\'ee ayant un certain {\it id}, il peut donc y avoir perte d'informations et c'est int\'eressant pour l'utilisateur de savoir quelle description sera conserv\'ee et quelles descriptions pouraient \^etre perdues.\\
+Lorsqu'une telle erreur est rencontr\'ee, elle est indiqu\'ee dans la partie {\it Unvailable descriptions}.
+\end{itemize}
+
+
+

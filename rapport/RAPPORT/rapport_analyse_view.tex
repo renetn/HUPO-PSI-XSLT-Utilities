@@ -1,0 +1,12 @@
+\section{Description de l'outil de visualisation PSI}
+Il sagit d'un outil qui à partir d'un fichier PSI canonique retourne un fichier au format HTML qui présente les intéractions de façon synthétique.\\
+La phase d'analyse de cet outil à été faites par Henning Hermjakob (acteur du projet PSI) qui nous a donné une version bien avancée de cet outil. Notre travail a consisté reprendre l'implémentation et à refaire la mise en forme de se document de façon à présenter le mieux possible les résultats.
+
+\section{Contenu du fichier}
+\begin{itemize}
+\item[$\bullet$] On affiche d'abord les sources et les licences du fichiers.
+\item[$\bullet$] On construit un tableau dont chaque ligne est un participant à une intéraction. Le tableau présente les données : {\em interactorRef/@ref} or {\em proteinInteractor/names/shortLabel}, {\em participant/role}, {\em participant/isTaggedProtein}, {\em participant/isOverexpressedProtein}, {\em interactionType}.
+\item[$\bullet$] Pour plus de lisibilité les lignes sont regroupées par intéraction et on alterne la couleur d'affichage d'un partiant à chaque linge.
+\end{itemize}
+
+

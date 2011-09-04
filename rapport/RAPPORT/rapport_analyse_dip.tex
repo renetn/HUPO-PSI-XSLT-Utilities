@@ -1,0 +1,120 @@
+\section{Transformation DIP vers PSI}
+
+\subsection{Implémentation du format XML de DIP}
+
+Les fichiers DIP sont censés vérifier le schéma \texttt{XIN.xsd}. On
+peut représenter la structure de ces fichiers sous forme graphique.\\
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.5]{structure_dip.eps}
+\caption{Structure du fichier DIP initial}
+\end{center}
+\end{figure}
+
+Dans ce graphique, les rectangles représentent des éléments et les ellipses des attributs.
+
+\subsubsection{Balise project}
+
+La balise \textit{project} est la racine du fichier XML. Elle a pour
+enfant des balises :
+\begin {description}
+\item[attributes] Définition des attributs utilisés dans la suite du fichier
+\item[node] Définition des protéines (interactor) 
+\item[edge] Définitions des interactions
+\end{description}
+ 
+Ses attributs sont :
+\begin{description}
+\item[title] contient le titre du fichier
+\item[author] contient l'auteur du fichier
+\item[source] contient la source du fichier
+\item[date] contient la date du fichier
+\item[ver] contient la version du fichier
+
+\end{description}
+
+\subsubsection{Balise attributes}
+La balise \textit{attributes} défini les attributs \textit{name} possibles pour
+les balises \textit{att} dans les \textit{node} et les
+\textit{edge}. On ne sait traiter que les fichiers dont la balise
+\textit{attributes} est :
+\begin{verbatim}
+ <attributes>
+  <edgeAtt name="class" type="text">
+  </edgeAtt>
+  <edgeAtt name="name" type="text">
+  </edgeAtt>
+  <nodeAtt name="descr" type="text">
+  </nodeAtt>
+  <nodeAtt name="shn" type="text">
+  </nodeAtt>
+  <nodeAtt name="organism" type="text">
+  </nodeAtt>
+  <nodeAtt name="taxon" type="text">
+  </nodeAtt>
+ </attributes>
+\end{verbatim}
+
+\subsubsection {Balise node}
+La balise \textit{node} correspond aux \textit{interactor} du fichier
+au format \texttt{MIFn}. Elle contient des balises :
+\begin{description}
+\item[att] contient des informations sur la protéine
+\item[feature] contient des références vers les autres bases de données.
+\end{description}
+
+Ses attributs sont :
+\begin{description}
+\item[id] identifiant de la protéine dans le fichier
+\item[uid] identifiant global
+\item[name] nom de la protéine
+\item[class] vaut ``protein''
+\end{description}
+
+Tous ces attributs sont requis.
+
+\subsubsection{Balise node/att}
+La balise a un attribut{\it name} qui vaut :
+\begin{description}
+\item[shn] représente le short name de la protéine.
+\item[descr] représente une description de la protéine.
+\item[taxon] représente le taxon de la protéine
+\item[organism] représente l'organisme de la protéine.
+\end{description}
+
+Cette balise contient un élément {\it val} où est stockée la valeur de l'attribut.
+
+\subsubsection{node/feature}
+La balise a un attribut {\it class} qui vaut ``cref''.
+Elle correspond alors à une référence vers d'autres bases de données.\\ Elle a aussi un attribut {\it name}
+Cette balise contient un élément {\it src} où est stockée la valeur de cette référence.
+
+
+\subsubsection {Balise edge}
+La balise {\it edge} correspond aux {\it interaction} du fichier au format MIFn. Elle contient des balises :
+\begin{description}
+\item[att] On ne sait pas à quoi correspond cette balise.
+\item[feature] Décrit les expériences identifiant l'interaction.
+\end{description}
+Ses attributs requis sont :
+\begin{description}
+\item[id] contient l'identifiant de l'interaction dans le fichier.
+\item[from] contient une référence vers une protéine du fichier.
+\item[to] contient une référence vers une protéine du fichier.
+\end{description}
+
+Ses attributs non requis sont :
+\begin{description}
+
+\item[uid] contient un identifiant global.
+\item[class] vaut ``link''
+\item[name] contient le nom le nom de l'interaction.
+\end{description}
+
+\subsubsection {Balise edge/feature}
+Cet élément contient une référence vers une expérience. Elle a un attribut {\it uid}. Le nom de la base de donnée est stocké dans une balise {\it src} et le nom de l´ expérience dans la balise{\it val}
+
+\subsection{ Problèmes rencontrés }
+Les fichiers DIP sous forme XML ne vérifient pas le schéma {\tt XIN.xsd}. Par exemple l'attribut {\it name} est requis dans les éléments {\it feature} est souvent absent. Ainsi on matche l'attribut {\it uid } à la place bien qu'on ne soit pas sûr de sa présence. Les outils développés sont donc conçus autour des fichiers téléchargés et prennent moins en compte le fichier {\tt XIN.xsd}.
+

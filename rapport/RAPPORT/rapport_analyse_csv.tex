@@ -1,0 +1,42 @@
+\section{Analyse et mise en oeuvre de la transformation de fichier PSI en fichier CSV} 
+
+Le format PSI est un format XML particulier destiné à standardiser les formats XML de stockage de données tels que DIP par exemple. Ceci étant pris en compte, pour faciliter la consultation des données des fichiers au format PSI, il peut être intéressant de transformer ces fichiers en des fichiers avec un format aisément lisible par tout utilisateur du format PSI. Le format ``Coma Separated Value'' (CSV) semble remplir pleinement ce rôle puisqu'il est lisible par n'importe quel logiciel de tableur.\\
+
+Dans cette section, nous alons présenter les étapes de l'élaboration de l'outil destiné à transformer des fichiers au format PSI canonique en des fichiers au format CSV.
+
+\subsection{Définition du format de sortie}
+
+\subsubsection{structure globale}
+
+Comme nous l'avons déjà souligné, le format PSI est un format XML particulier. De ce fait, comme tout format XML, il possède une arborescence spécifique définie dans son schéma XSD. Or, un des buts de notre outil est de présenter de façon lisible l'ensemble des données contenues dans un fichier PSI. Par conséquent, notre première préoccupation dans ce projet a été de définir une structure pour les fichiers CSV générés par l'outil.\\
+
+La solution la plus naturelle est de faire en sorte que les informations des fichiers CSV soient structurées d'une façon la plus proche possible de l'arborescence PSI. Or, en étudiant de près cette arborescence, on s'aperçoit que l'on peut décomposer un fichier PSI en quatre grande ``parties'':\\
+
+\begin{itemize}
+
+\item[$\bullet$] availabilityList\\
+
+\item[$\bullet$] experimentList\\
+
+\item[$\bullet$] interactorList\\
+
+\item[$\bullet$] interactionList\\
+
+\end{itemize}
+
+Dès lors, il apparait logique de générer, dans notre fichier CSV, quatre tableaux, chacun contenant les données relatives à l'une des parties ci-dessus. Ainsi, on pourrait envisager de consacrer une colonne par champ correspondant à la valeur d'un noeud pour chaque ``partie''. \\
+
+\newpage
+
+\subsubsection{interactionList : le cas particulier}
+
+En théorie, la structure précédente parait naturelle. Cependant, le schéma XSD de PSI est conçu de telle sorte que le sous-arbre \texttt{interactionList} contient plusieurs \texttt{participants} et plusieurs \texttt{features} par interaction. Ceci représente donc un problème puisque cela implique que le tableau correspondant dans le fichier CSV pourrait avoir un nombre variable de colonnes. Ce serait alors la lisibilité qui en patirait ce qui irait à l'encontre du but initialement fixé.\\
+
+Par conséquent, nous avons décidé de créer un tableau \texttt{interactionList} comportant, non plus une ligne par interaction, mais une ligne par participant à l'interaction. On répète alors les informations des interactions mais on gagnera nettement en clarté du fichier résultat. Ajouté à cela, on crée un tableau spécifique pour les \texttt{features}(nommé \texttt{featureList}) contenant une ligne par \texttt{feature} en indiquant, pour chacun de ces derniers, une référence vers l'interaction à laquelle il se rapporte.\\
+
+Ainsi, on obtient un fichier CSV totalement formaté et donc plus lisible. En outre, ce formatage permet de faciliter l'analyse des fichiers CSV dans l'eventualité où on voudrait élaborer un outil permettant la transformation de fichier CSV en fichiers PSI. Pour de plus amples détails sur le format CSV retenu, nous invitons le lecteur à se reporter à la section {\it Conception} relative à cet outil dans la suite de ce rapport.
+
+
+ 
+
+ 

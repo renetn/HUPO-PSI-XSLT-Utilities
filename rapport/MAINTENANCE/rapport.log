@@ -1,0 +1,554 @@
+This is TeX, Version 3.14159 (Web2C 7.3.1) (format=latex 2002.1.21)  23 MAY 2003 16:16
+**rapport.tex
+(rapport.tex
+LaTeX2e <1999/12/01> patch level 1
+Babel <v3.6Z> and hyphenation patterns for american, french, german, ngerman, n
+ohyphenation, loaded.
+(/a/tanit/opt/teTeX/share/texmf/tex/latex/base/report.cls
+Document Class: report 1999/09/10 v1.4a Standard LaTeX document class
+(/a/tanit/opt/teTeX/share/texmf/tex/latex/base/size10.clo
+File: size10.clo 1999/09/10 v1.4a Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/a/tanit/opt/teTeX/share/texmf/tex/latex/graphics/graphics.sty
+Package: graphics 1999/02/16 v1.0l Standard LaTeX Graphics (DPC,SPQR)
+
+(/a/tanit/opt/teTeX/share/texmf/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/a/tanit/opt/teTeX/share/texmf/tex/latex/config/graphics.cfg)
+Package graphics Info: Driver file: dvips.def on input line 80.
+
+(/a/tanit/opt/teTeX/share/texmf/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+(/a/tanit/opt/teTeX/share/texmf/tex/latex/graphics/epsfig.sty
+Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
+
+(/a/tanit/opt/teTeX/share/texmf/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/a/tanit/opt/teTeX/share/texmf/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+\epsfxsize=\dimen105
+\epsfysize=\dimen106
+)
+(/a/tanit/opt/teTeX/share/texmf/tex/generic/babel/babel.sty
+Package: babel 1999/09/09 v3.6Z The Babel package
+
+(/a/tanit/opt/teTeX/share/texmf/tex/generic/babel/frenchb.ldf
+Language: frenchb 1999/08/18 v1.3g French support from the babel system
+
+(/a/tanit/opt/teTeX/share/texmf/tex/generic/babel/babel.def
+File: babel.def 1999/09/09 v3.6Z Babel common definitions
+\babel@savecnt=\count88
+\U@D=\dimen107
+)
+Package babel Info: Making : an active character on input line 126.
+Package babel Info: Making ; an active character on input line 127.
+Package babel Info: Making ! an active character on input line 128.
+Package babel Info: Making ? an active character on input line 129.
+))
+(/a/tanit/opt/teTeX/share/texmf/tex/latex/base/inputenc.sty
+Package: inputenc 1999/09/17 v0.992 Input encoding file 
+
+(/a/tanit/opt/teTeX/share/texmf/tex/latex/base/latin1.def
+File: latin1.def 1999/09/17 v0.992 Input encoding file 
+))
+(/a/tanit/opt/teTeX/share/texmf/tex/latex/base/fontenc.sty
+Package: fontenc 1999/12/08 v1.9x Standard LaTeX package
+
+(/a/tanit/opt/teTeX/share/texmf/tex/latex/base/t1enc.def
+File: t1enc.def 1999/12/08 v1.9x Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 38.
+))
+(/a/tanit/opt/teTeX/share/texmf/tex/latex/fancyhdr/fancyhdr.sty
+\headwidth=\dimen108
+) (rapport.aux
+(maint_introduction.aux) (maint_psi.aux) (maint_dip.aux) (maint_csv.aux)
+(maint_biblio.aux) (maint_glossaire.aux))
+\openout1 = `rapport.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT2/wncyr/m/n on input line 21.
+LaTeX Font Info:    Try loading font information for OT2+wncyr on input line 21
+.
+
+(/a/tanit/opt/teTeX/share/texmf/tex/latex/cyrillic/ot2wncyr.fd
+File: ot2wncyr.fd 1999/05/31 v3.2 Computer Modern Cyrillic font definitions
+)
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 22.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 22.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 22.
+ [1
+
+]
+(rapport.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 5.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 5.
+
+Overfull \hbox (19.10278pt too wide) in paragraph at lines 12--12
+ [] []\T1/cmr/bx/n/10 Outil de test de fi-chier ca-no-nique - MIF_normalisedFor
+mTester.xsl []  
+ []
+
+
+Overfull \hbox (17.61009pt too wide) in paragraph at lines 16--16
+ [] []\T1/cmr/bx/n/10 Outil de test de fi-chier d^^e9-roul^^e9 - MIF_denormalis
+edFormTester.xsl []  
+ []
+
+[1
+
+])
+\tf@toc=\write3
+\openout3 = `rapport.toc'.
+
+ [2]
+\openout2 = `maint_introduction.aux'.
+
+ (maint_introduction.tex
+Chapitre 1.
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--6
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--6
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 7--8
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 10--11
+
+ []
+
+) [3
+
+
+]
+\openout2 = `maint_psi.aux'.
+
+ (maint_psi.tex
+Chapitre 2.
+File: psi_fold.eps Graphic file (type eps)
+<psi_fold.eps>
+File: psi_unfold.eps Graphic file (type eps)
+ <psi_unfold.eps>
+Underfull \hbox (badness 10000) in paragraph at lines 3--30
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--30
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--30
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--30
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--30
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--30
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--30
+
+ []
+
+
+Overfull \hbox (4.52576pt too wide) in paragraph at lines 3--30
+\T1/cmr/m/n/10 Dans se forme d^^e9-rou-l^^e9e, les listes d'en-t^^eate sont vid
+es et les in-ter-ac-tions contiennent
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--30
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--30
+
+ []
+
+[4
+
+
+
+] [5] [6]
+Chapitre 3.
+
+Overfull \hbox (5.25848pt too wide) in paragraph at lines 55--56
+\T1/cmr/m/it/10 ex-pe-ri-ment-List, avai-la-bi-li-ty-Des-crip-tion, avai-la-bi-
+li-ty-Ref,availabilityList, pro-tei-nIn-
+ []
+
+[7
+
+]
+Overfull \vbox (10.48724pt too high) has occurred while \output is active []
+
+
+[8]
+Chapitre 4.
+
+Overfull \hbox (5.25848pt too wide) in paragraph at lines 78--79
+\T1/cmr/m/it/10 ex-pe-ri-ment-List, avai-la-bi-li-ty-Des-crip-tion, avai-la-bi-
+li-ty-Ref,availabilityList, pro-tei-nIn-
+ []
+
+[9
+
+]
+Overfull \vbox (10.48724pt too high) has occurred while \output is active []
+
+
+[10]
+Chapitre 5.
+
+Overfull \hbox (17.58583pt too wide) in paragraph at lines 81--81
+\T1/cmr/bx/n/24.88 MIF_normalisedFormTester.xsl  
+ []
+
+[11
+
+]
+Chapitre 6.
+
+Overfull \hbox (43.8108pt too wide) in paragraph at lines 99--99
+\T1/cmr/bx/n/24.88 MIF_denormalisedFormTester.xsl  
+ []
+
+[12
+
+]
+Chapitre 7.
+) [13
+
+]
+\openout2 = `maint_dip.aux'.
+
+ (maint_dip.tex
+Chapitre 8.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 15.
+(/a/tanit/opt/teTeX/share/texmf/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+) [14
+
+
+
+] [15]) [16]
+\openout2 = `maint_csv.aux'.
+
+
+(maint_csv.tex
+Chapitre 9.
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 14--15
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--17
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 18--19
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 20--21
+
+ []
+
+[17
+
+
+
+]
+File: tableaux_csv.eps Graphic file (type eps)
+ <tableaux_csv.eps> [18] [19]
+Underfull \hbox (badness 10000) in paragraph at lines 34--35
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 36--37
+
+ []
+
+
+Overfull \hbox (15.22125pt too wide) in paragraph at lines 38--39
+[]\T1/cmr/m/n/10 Attention, en ce qui concerne l'ou-til de trans-for-ma-tion du
+ for-mat PSI_canonique
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 47--48
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 48--49
+
+ []
+
+
+Overfull \hbox (17.35974pt too wide) in paragraph at lines 49--50
+\T1/cmr/m/n/10 champ dans l'ar-bo-res-cence du for-mat PSI en-trai-nera une ``n
+on-correspondance''
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 49--50
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 52--53
+
+ []
+
+[20]
+Underfull \hbox (badness 10000) in paragraph at lines 58--59
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 64--151
+
+ []
+
+
+Overfull \hbox (17.86464pt too wide) in paragraph at lines 64--151
+[] 
+ []
+
+
+Overfull \hbox (17.78426pt too wide) in paragraph at lines 64--151
+[] 
+ []
+
+
+Overfull \hbox (10.34163pt too wide) in paragraph at lines 64--151
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 156--157
+
+ []
+
+[21]
+Underfull \hbox (badness 10000) in paragraph at lines 158--159
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 160--161
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 162--163
+
+ []
+
+[22]
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
+
+ []
+
+[23]
+Underfull \hbox (badness 10000) in paragraph at lines 205--206
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 207--208
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 209--210
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 211--212
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 213--214
+
+ []
+
+[24]
+Underfull \hbox (badness 10000) in paragraph at lines 219--220
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 221--222
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 223--224
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 225--226
+
+ []
+
+) [25]
+\openout2 = `maint_biblio.aux'.
+
+
+No file maint_biblio.tex.
+\openout2 = `maint_glossaire.aux'.
+
+(maint_glossaire.tex
+Chapitre 10.
+
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 7--8
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 10--11
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 12--13
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 14--17
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 18--19
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 20--21
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--23
+
+ []
+
+[26
+
+
+
+
+
+]) [27] (rapport.aux (maint_introduction.aux) (maint_psi.aux) (maint_dip.aux) (
+maint_csv.aux) (maint_biblio.aux) (maint_glossaire.aux)) ) 
+Here is how much of TeX's memory you used:
+ 1437 strings out of 10901
+ 16041 string characters out of 72252
+ 70156 words of memory out of 263001
+ 4354 multiletter control sequences out of 10000+0
+ 18040 words of font info for 39 fonts, out of 400000 for 1000
+ 14 hyphenation exceptions out of 1000
+ 31i,10n,40p,892b,422s stack positions out of 300i,100n,500p,50000b,4000s
+
+Output written on rapport.dvi (28 pages, 63596 bytes).
